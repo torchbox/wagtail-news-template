@@ -1,0 +1,17 @@
+__pycache__
+*.pyc
+.DS_Store
+*.swp
+.env
+/venv/
+/.venv/
+/tmp/
+/.vagrant/
+/Vagrantfile.local
+node_modules/
+/npm-debug.log
+/.idea/
+.vscode
+coverage
+.python-version
+.vim
