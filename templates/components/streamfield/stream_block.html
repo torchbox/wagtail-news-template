@@ -1,0 +1,9 @@
+{% templatetag openblock %} load wagtailcore_tags {% templatetag closeblock %}
+
+<div class="site-padding site-container">
+    {% templatetag openblock %} for block in value {% templatetag closeblock %}
+        <div class="pb-40">    
+            {% templatetag openblock %} include_block block {% templatetag closeblock %}
+        </div>
+    {% templatetag openblock %} endfor {% templatetag closeblock %}
+</div>

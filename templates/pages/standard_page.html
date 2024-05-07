@@ -1,0 +1,23 @@
+{% templatetag openblock %} extends "base_page.html" {% templatetag closeblock %}
+{% templatetag openblock %} load wagtailcore_tags wagtailimages_tags static {% templatetag closeblock %}
+
+{% templatetag openblock %} block content {% templatetag closeblock %}
+    {% templatetag openblock %} block breadcrumbs {% templatetag closeblock %}
+        {% templatetag openblock %} include "navigation/breadcrumbs.html" {% templatetag closeblock %}
+    {% templatetag openblock %} endblock {% templatetag closeblock %}
+    <div class="site-padding site-container">
+        <div class="relative max-w-[872px] pt-32 tall:pt-40 pb-20">
+            <h1 class="font-serif4 [word-spacing:-6px] font-bold text-7xl lg:text-10xl">
+                {% templatetag openvariable %} page.title {% templatetag closevariable %}
+            </h1>
+            <p class="max-w-[636px] pt-7 rich-text">
+                {% templatetag openvariable %} page.introduction|richtext {% templatetag closevariable %}
+            </p>
+        </div>
+    </div>
+
+    {% templatetag openblock %} include_block page.body {% templatetag closeblock %}
+
+    {% templatetag openblock %} include "components/related-pages.html" {% templatetag closeblock %}
+
+{% templatetag openblock %} endblock {% templatetag closeblock %}

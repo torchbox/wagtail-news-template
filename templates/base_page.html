@@ -1,0 +1,24 @@
+{% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
+
+{% templatetag openblock %} load static wagtailuserbar wagtailcore_tags wagtailimages_tags util_tags {% templatetag closeblock %}
+
+{% templatetag openblock %} wagtail_site as current_site {% templatetag closeblock %}
+
+{% templatetag openblock %} block meta_tags {% templatetag closeblock %}
+
+<link rel="icon" href="{% templatetag openblock %} static 'images/favicons/favicon.ico' {% templatetag closeblock %}" sizes="32x32">
+<link rel="icon" href="{% templatetag openblock %} static 'images/favicons/favicon.svg'{% templatetag closeblock %}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{% templatetag openblock %} static 'images/favicons/apple-touch-icon.png' {% templatetag closeblock %}">
+<link rel="manifest" href="{% templatetag openblock %} static 'images/favicons/favicon.webmanifest' {% templatetag closeblock %}">
+<meta name="theme-color" content="#26899E"/>
+
+{% templatetag openblock %} endblock meta_tags {% templatetag closeblock %}
+
+{% templatetag openblock %} block header {% templatetag closeblock %}
+    {% templatetag openblock %} include "navigation/header.html" {% templatetag closeblock %}
+{% templatetag openblock %} endblock header {% templatetag closeblock %}
+
+
+{% templatetag openblock %} block footer {% templatetag closeblock %}
+    {% templatetag openblock %} include "navigation/footer.html" {% templatetag closeblock %}
+{% templatetag openblock %} endblock footer {% templatetag closeblock %}

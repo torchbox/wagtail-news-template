@@ -1,0 +1,12 @@
+{% templatetag openblock %} include "components/streamfield/blocks/heading2_block.html" with large_spacing=True value=value.heading sr_only=value.sr_only_label {% templatetag closeblock %}
+
+<div class="flex flex-col md:flex-row gap-20">
+    {% templatetag openblock %} for statistic in value.statistics {% templatetag closeblock %}
+        <div class="flex flex-col gap-2 text-center items-center">
+            <div class="text-mackerel-300 text-8xl font-semibold font-codepro">
+                {% templatetag openvariable %} statistic.statistic {% templatetag closevariable %}
+            </div>
+            <div class="text-lg md:text-xl">{% templatetag openvariable %} statistic.description {% templatetag closevariable %}</div>
+        </div>
+    {% templatetag openblock %} endfor {% templatetag closeblock %}
+</div>

@@ -1,0 +1,12 @@
+{% templatetag openblock %} load util_tags {% templatetag closeblock %}
+<h2 
+    class="font-serif4 text-3xl md:text-5xl font-semibold 
+    {% templatetag openblock %} if large_spacing {% templatetag closeblock %}
+        mb-10 md:mb-20
+    {% templatetag openblock %} else {% templatetag closeblock %}
+        mb-8 md:mb-10
+    {% templatetag openblock %} endif {% templatetag closeblock %}
+    "
+    >
+    {% templatetag openvariable %} value {% templatetag closevariable %}
+</h2>

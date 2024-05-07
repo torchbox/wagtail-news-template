@@ -1,0 +1,67 @@
+{% templatetag openblock %} load wagtailcore_tags wagtailsettings_tags wagtailimages_tags {% templatetag closeblock %}
+
+
+<div class="flex flex-col 
+
+lg:max-w-[370px]
+w-full h-full group
+">
+    <div class="
+        rounded-md
+        overflow-hidden 
+        md:max-w-[270px]
+        lg:max-w-full
+        w-full 
+    ">
+        {% templatetag openblock %} if page.listing_image {% templatetag closeblock %}
+            {% templatetag openblock %} image page.listing_image format-jpeg fill-800x600 as card_image_1x_jpg {% templatetag closeblock %}
+            {% templatetag openblock %} image page.listing_image format-jpeg fill-1600x1200 as card_image_2x_jpg {% templatetag closeblock %}
+            {% templatetag openblock %} image page.listing_image format-webp fill-800x600 as card_image_1x_webp {% templatetag closeblock %}
+            {% templatetag openblock %} image page.listing_image format-webp fill-1600x1200 as card_image_2x_webp {% templatetag closeblock %}
+        {% templatetag openblock %} else {% templatetag closeblock %}
+            {# fallback to placeholder image #}
+            {% templatetag openblock %} image settings.utils.SystemMessagesSettings.get_placeholder_image format-jpeg fill-800x600 as card_image_1x_jpg {% templatetag closeblock %}
+            {% templatetag openblock %} image settings.utils.SystemMessagesSettings.get_placeholder_image format-jpeg fill-1600x1200 as card_image_2x_jpg {% templatetag closeblock %}
+            {% templatetag openblock %} image settings.utils.SystemMessagesSettings.get_placeholder_image format-webp fill-800x600 as card_image_1x_webp {% templatetag closeblock %}
+            {% templatetag openblock %} image settings.utils.SystemMessagesSettings.get_placeholder_image format-webp fill-1600x1200 as card_image_2x_webp {% templatetag closeblock %}
+        {% templatetag openblock %} endif {% templatetag closeblock %}
+        <picture>
+            <source srcset="{% templatetag openvariable %} card_image_1x_webp.url {% templatetag closevariable %} 1x, {% templatetag openvariable %} card_image_2x_webp.url {% templatetag closevariable %} 2x" type="image/webp" />
+            <source srcset="{% templatetag openvariable %} card_image_1x_jpg.url {% templatetag closevariable %} 1x, {% templatetag openvariable %} card_image_2x_jpg.url {% templatetag closevariable %} 2x" type="image/jpeg" />
+            <img
+                src="{% templatetag openvariable %} card_image_1x_webp.url {% templatetag closevariable %}"
+                width="{% templatetag openvariable %} card_image_1x_webp.width {% templatetag closevariable %}"
+                height="{% templatetag openvariable %} card_image_1x_webp.height {% templatetag closevariable %}"
+                alt="{% templatetag openvariable %} card_image_1x_webp.alt {% templatetag closevariable %}"
+
+                class="
+                aspect-[20/11] 
+                md:aspect-[4/3] lg:aspect-[20/11] 
+                
+                w-full h-full object-cover"
+                {% templatetag openblock %} if card_image_1x_webp.focal_point {% templatetag closeblock %}
+                style='{% templatetag openvariable %} card_image_1x_webp.object_position_style {% templatetag closevariable %}'
+                {% templatetag openblock %} endif {% templatetag closeblock %}
+            />
+        </picture>
+    </div>
+
+    <div class="pt-7">
+        <a
+            href="{% templatetag openblock %} pageurl page {% templatetag closeblock %}"
+            class="
+            text-xl md:text-2xl font-bold leading-8 md:leading-10
+            underline
+            underline-offset-8
+            decoration-[1.5px]
+            decoration-mackerel-200
+            hover:decoration-mackerel-300
+            "
+        >
+            {% templatetag openblock %} firstof page.listing_title page.title {% templatetag closeblock %}
+        </a>
+        <p class="text-grey-700 dark:text-grey-200 pt-2.5 leading-6">
+            {% templatetag openblock %} firstof page.listing_summary page.plain_introduction {% templatetag closeblock %}
+        </p>
+    </div>
+</div>

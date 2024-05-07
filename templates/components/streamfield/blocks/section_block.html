@@ -1,0 +1,8 @@
+
+{% templatetag openblock %} load wagtailcore_tags {% templatetag closeblock %}
+
+{% templatetag openblock %} include "components/streamfield/blocks/heading2_block.html" with value=value.heading {% templatetag closeblock %}
+
+{% templatetag openblock %} for block in value.content {% templatetag closeblock %}
+    {% templatetag openblock %} include_block block {% templatetag closeblock %}
+{% templatetag openblock %} endfor {% templatetag closeblock %}

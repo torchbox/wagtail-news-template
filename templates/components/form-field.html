@@ -1,0 +1,88 @@
+{# TODO support other field widgets #}
+
+{% templatetag openblock %} with field_type=field.field.widget.input_type {% templatetag closeblock %}
+    <div class="mb-10">
+        {% templatetag openblock %} if field_type == "text" or field_type == "select" or field_type == "email" {% templatetag closeblock %}
+
+            {% templatetag openblock %} if field.help_text {% templatetag closeblock %}
+                <p class="text-sm leading-7">{% templatetag openvariable %} field.help_text {% templatetag closevariable %}<p>
+            {% templatetag openblock %} endif {% templatetag closeblock %}
+                
+            {% templatetag openblock %} if field.errors {% templatetag closeblock %}
+                <ul>
+                    {% templatetag openblock %} for error in field.errors {% templatetag closeblock %}
+                    <li class="text-red-400 font-bold text-sm leading-7">
+                        {% templatetag openvariable %} error {% templatetag openvariable %}
+                    </li>
+                    {% templatetag openblock %} endfor {% templatetag closeblock %}
+                </ul>
+            {% templatetag openblock %} endif {% templatetag closeblock %}
+            {% templatetag openblock %} if field_type == "text" or field_type == "email" {% templatetag closeblock %}
+                <input 
+                    class="text-base placeholder:text-base p-3.5 border border-mackerel-200 bg-white dark:bg-mackerel-100 dark:text-white placeholder:text-mackerel-400 dark:placeholder:text-white w-full rounded-[30px] min-h-[50px]"
+                    type="text"
+                    name="{% templatetag openvariable %} field.name {% templatetag closevariable %}"
+                    {% templatetag openblock %} if field.value {% templatetag closeblock %}
+                        value="{% templatetag openvariable %} field.value {% templatetag closevariable %}"
+                    {% templatetag openblock %} endif {% templatetag closeblock %}
+                    {% templatetag openblock %} if field.label {% templatetag closeblock %}
+                        placeholder="{% templatetag openvariable %} field.label {% templatetag closevariable %}"
+                    {% templatetag openblock %} endif {% templatetag closeblock %}
+                />
+            {% templatetag openblock %} elif field_type == "select" {% templatetag closeblock %}
+                <div class="relative">
+                    <select name="{% templatetag openvariable %} field.name {% templatetag closevariable %}" class="text-base placeholder:text-base p-3.5 flex items-center border border-mackerel-200 bg-white dark:bg-mackerel-100 dark:text-white placeholder:text-mackerel-400 dark:placeholder:text-white rounded-[30px] appearance-none w-full cursor-pointer min-h-[50px]">
+                        {% templatetag openblock %} if field.label {% templatetag closeblock %}
+                        <option value="">{% templatetag openvariable %} field.label {% templatetag closevariable %}</option>
+                        {% templatetag openblock %} endif {% templatetag closeblock %}
+                        {% templatetag openblock %} for key, label in field.field.choices {% templatetag closeblock %}
+                            <option value="{% templatetag openvariable %} key {% templatetag closevariable %}" 
+                            {% templatetag openblock %} if field.value == key {% templatetag closeblock %} selected {% templatetag openblock %} endif {% templatetag closeblock %}
+                            >
+                                {% templatetag openvariable %} label {% templatetag closevariable %}
+                            </option>
+                        {% templatetag openblock %} endfor {% templatetag closeblock %}
+                    </select>
+                    {% templatetag openblock %} include "icons/arrow-right.html" with class="fill-current w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 rotate-90" {% templatetag closeblock %}
+                </div>
+            {% templatetag openblock %} endif {% templatetag closeblock %}
+
+            {% templatetag openblock %} elif field_type == "checkbox" or field_type == "radio" {% templatetag closeblock %}
+            {% templatetag openblock %} if field.errors {% templatetag closeblock %}
+            <ul>
+                {% templatetag openblock %} for error in field.errors {% templatetag closeblock %}
+                <li class="text-red-400 font-bold text-sm leading-7">
+                    {% templatetag openvariable %} error {% templatetag openvariable %}
+                </li>
+                {% templatetag openblock %} endfor {% templatetag closeblock %}
+            </ul>
+            {% templatetag openblock %} endif {% templatetag closeblock %}
+            
+            <div class="flex items-center">
+                {% templatetag openblock %} if field_type == "checkbox" {% templatetag closeblock %}
+                <div class="checkbox">
+                    <input id="{% templatetag openvariable %} field.id_for_label {% templatetag closevariable %}" class="h-[20px] w-[20px] bg-white dark:bg-mackerel-100 accent-mackerel-300" 
+                    type="checkbox" 
+                    {% templatetag openblock %} if field.checked {% templatetag closeblock %}checked{% templatetag openblock %} endif {% templatetag closeblock %}
+                    name="{% templatetag openvariable %} field.name {% templatetag closevariable %}" 
+                    {% templatetag openblock %} if field.value {% templatetag closeblock %}value="{% templatetag openvariable %} field.value {% templatetag closevariable %}"{% templatetag openblock %} endif {% templatetag closeblock %}
+                    {% templatetag openblock %} if required {% templatetag closeblock %}required{% templatetag openblock %} endif {% templatetag closeblock %}
+                    />
+                </div>
+                {% templatetag openblock %} elif field_type == "radio" {% templatetag closeblock %}
+                <input 
+                    id="{% templatetag openvariable %} field.id_for_label {% templatetag closevariable %}" 
+                    class="h-[30px] w-[30px] bg-white dark:bg-mackerel-100 accent-mackerel-300" 
+                    type="radio" 
+                    name="{% templatetag openvariable %} field.name {% templatetag closevariable %}" 
+                    value="{% templatetag openvariable %} field.value {% templatetag closevariable %}" 
+                />
+                {% templatetag openblock %} endif {% templatetag closeblock %}
+
+                <label for="{% templatetag openvariable %} field.id_for_label {% templatetag closevariable %}" class="ml-2 text-sm md:text-base leading-6 md:leading-7 cursor-pointer">
+                    {% templatetag openvariable %} field.label {% templatetag closevariable %}
+                </label>
+            </div>
+        {% templatetag openblock %} endif {% templatetag closeblock %}
+    </div>
+{% templatetag openblock %} endwith {% templatetag closeblock %}

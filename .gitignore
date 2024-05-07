@@ -3,9 +3,11 @@ __pycache__
 .DS_Store
 *.swp
 .env
+*.sqlite3
 /venv/
 /.venv/
 /tmp/
+/static/
 /.vagrant/
 /Vagrantfile.local
 node_modules/

@@ -1,0 +1,74 @@
+{% templatetag openblock %} extends "base_page.html" {% templatetag closeblock %}
+{% templatetag openblock %} load static wagtailcore_tags wagtailsearchpromotions_tags {% templatetag closeblock %}
+
+{% templatetag openblock %} block title {% templatetag closeblock %}Search{% templatetag openblock %} endblock title {% templatetag closeblock %}
+
+{% templatetag openblock %} block content {% templatetag closeblock %}
+    <div class="site-padding site-container">
+        <div class="flex flex-col md:flex-row md:items-center py-20">
+            <h1 class="min-w-fit font-serif4 [word-spacing:-6px] font-bold text-8xl lg:text-10xl border-grey-200 md:pr-16 lg:pr-20 md:border-r-[1px] md:basis-2/6">
+                {% templatetag openblock %} if search_results {% templatetag closeblock %}
+                    {% templatetag openblock %} with count=search_results.paginator.count {% templatetag closeblock %}
+                        {% templatetag openvariable %} count {% templatetag closevariable %} result{% templatetag openvariable %} count|pluralize {% templatetag closevariable %}
+                    {% templatetag openblock %} endwith {% templatetag closeblock %}
+                {% templatetag openblock %} elif search_query {% templatetag closeblock %}
+                    0 results
+                {% templatetag openblock %} else {% templatetag closeblock %}
+                    Search
+                {% templatetag openblock %} endif {% templatetag closeblock %}
+            </h1>
+            <div class="max-w-[636px] rich-text pt-5 md:w-2/3 md:pl-16 lg:pl-20">
+                <form action="{% templatetag openblock %} url 'search' {% templatetag closeblock %}" method="get" role="search">
+                    <div class="flex flex-col md:flex-row pt-5">
+                        <input
+                            type="search"
+                            aria-label="Search our website"
+                            placeholder="Search our website"
+                            name="query"
+                            
+                            {% templatetag openblock %} if search_query {% templatetag closeblock %}value="{% templatetag openvariable %} search_query {% templatetag closevariable %}"{% templatetag openblock %} endif {% templatetag closeblock %}
+                            class="placeholder:text-base text-base border border-mackerel-200 bg-white dark:bg-mackerel-100 dark:text-white w-full md:max-w-[500px] h-[50px] rounded-[30px] px-4 pt-3 pb-2 mr-3 mb-3 md:mb-0" 
+                        />
+                        <button class="px-5 py-3 justify-center items-center text-sm md:text-base font-codepro uppercase inline-flex text-white bg-mackerel-300 dark:text-mackerel-400 rounded-[30px]">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="pb-20 md:pb-40">
+            {# Search results #}
+            {% templatetag openblock %} if search_results {% templatetag closeblock %}
+                <section class="grid grid-cols-1 gap-8 lg:gap-10">
+                    {% templatetag openblock %} for page in search_results {% templatetag closeblock %}
+                        {% templatetag openblock %} include "components/card--search.html" with page=page.specific {% templatetag closeblock %}
+                    {% templatetag openblock %} endfor {% templatetag closeblock %}
+
+                    {# Pagination #}
+                    {% templatetag openblock %} include "components/pagination.html" with paginator_page=search_results {% templatetag closeblock %}
+                </section>
+            {% templatetag openblock %} elif search_query {% templatetag closeblock %}
+                <section>
+                    <strong class="mt-4 mb-3">
+                        There are no matching results.
+                    </strong>
+                    <p class="my-3">
+                        Improve your results by:
+                    </p>
+                    <ul class="list-disc list-inside mb-8">
+                        <li>
+                            double-checking your spelling
+                        </li>
+                        <li>
+                            using fewer keywords
+                        </li>
+                        <li>
+                            searching for something less specific
+                        </li>
+                    </ul>
+                </section>
+            {% templatetag openblock %} endif {% templatetag closeblock %}
+        </div>
+    </div>
+{% templatetag openblock %} endblock content {% templatetag closeblock %}

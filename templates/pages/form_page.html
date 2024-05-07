@@ -1,0 +1,54 @@
+{% templatetag openblock %} extends "base_page.html" {% templatetag closeblock %}
+{% templatetag openblock %} load wagtailcore_tags {% templatetag closeblock %}
+
+
+{% templatetag openblock %} block content {% templatetag closeblock %}
+    {% templatetag openblock %} block breadcrumbs {% templatetag closeblock %}
+        {% templatetag openblock %} include "navigation/breadcrumbs.html" {% templatetag closeblock %}
+    {% templatetag openblock %} endblock {% templatetag closeblock %}
+    <div class="site-padding site-container">
+
+        {# Hero #}
+        <div class="flex flex-col md:flex-row md:items-center py-20">
+            <h1 class="min-w-fit max-w-[600px]font-serif4 [word-spacing:-6px] font-bold text-8xl lg:text-10xl
+            md:pr-16
+            lg:pr-20
+            {% templatetag openblock %} if page.introduction {% templatetag closeblock %}
+                md:border-r-[1px]
+                md:basis-2/6
+                border-grey-200
+            {% templatetag openblock %} endif {% templatetag closeblock %}
+            ">
+                {% templatetag openvariable %} page.title {% templatetag closevariable %}
+            </h1>
+            {% templatetag openblock %} if page.introduction {% templatetag closeblock %}
+                <div class="
+                    max-w-[636px]
+                    rich-text
+                    pt-5
+                    md:w-2/3
+                    md:pl-16
+                    lg:pl-20
+                ">
+                    {% templatetag openvariable %} page.introduction|richtext {% templatetag closevariable %}
+                </div>
+            {% templatetag openblock %} endif {% templatetag closeblock %}
+        </div>
+
+        <form class="pb-20 md:pb-40 max-w-[520px]" action="{% templatetag openblock %} pageurl page {% templatetag closeblock %}" method="POST">
+            {% templatetag openblock %} csrf_token {% templatetag closeblock %}
+
+
+            {% templatetag openblock %} for field in form {% templatetag closeblock %}
+                {% templatetag openblock %} include "components/form-field.html" with field=field {% templatetag closeblock %}
+            {% templatetag openblock %} endfor {% templatetag closeblock %}
+
+            <button
+                type="Submit"
+                class="md:px-10 px-5 py-3 md:py-[15px] justify-center items-center text-sm md:text-base font-codepro uppercase inline-flex text-white bg-mackerel-300 dark:text-mackerel-400 rounded-[30px]">
+                {% templatetag openvariable %} form.action_text|default:"Submit" {% templatetag closevariable %}
+            </button>
+        </form>
+    </div>
+{% templatetag openblock %} endblock content {% templatetag closeblock %}
+    

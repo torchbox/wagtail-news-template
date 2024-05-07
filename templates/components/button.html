@@ -1,0 +1,30 @@
+{% templatetag openblock %} if url {% templatetag closeblock %}
+    <a 
+        href="{% templatetag openvariable %} url {% templatetag closevariable %}" 
+        class="
+        {% templatetag openvariable %} classes {% templatetag closevariable %}
+        {% templatetag openblock %} if variant == 'footer' {% templatetag closeblock %}
+            md:px-5
+        {% templatetag openblock %} else {% templatetag closeblock %}
+            md:px-10
+        {% templatetag openblock %} endif {% templatetag closeblock %}
+        text-white bg-mackerel-300 dark:text-mackerel-400
+        px-5 py-3 md:py-[15px]
+        justify-center items-center text-sm md:text-base font-codepro uppercase inline-flex rounded-[3px]">
+            {% templatetag openvariable %} title {% templatetag closevariable %}
+    </a>
+{% templatetag openblock %} else {% templatetag closeblock %}
+    <button 
+        class="
+        {% templatetag openvariable %} classes {% templatetag closevariable %}
+        {% templatetag openblock %} if variant == 'footer' {% templatetag closeblock %}
+            md:px-5 
+        {% templatetag openblock %} else {% templatetag closeblock %}
+            md:px-10
+        {% templatetag openblock %} endif {% templatetag closeblock %}
+        text-white bg-mackerel-300 dark:text-mackerel-400
+        px-5 py-3 md:py-[15px]
+        justify-center items-center text-sm md:text-base font-codepro uppercase inline-flex rounded-[3px]">
+        {% templatetag openvariable %} title {% templatetag closevariable %}
+    </button>
+{% templatetag openblock %} endif {% templatetag closeblock %}

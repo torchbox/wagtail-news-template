@@ -1,0 +1,17 @@
+{% templatetag openblock %} load wagtailcore_tags wagtailimages_tags {% templatetag closeblock %}
+
+{% templatetag openblock %} if page.related_pages {% templatetag closeblock %}
+<section class="site-padding site-container pb-20 md:pb-40">
+
+    {% templatetag openblock %} firstof page.featured_section_title 'Read more' as heading {% templatetag closeblock %}
+    {% templatetag openblock %} include "components/streamfield/blocks/heading2_block.html" with value=heading {% templatetag closeblock %}
+
+    <div class="snap-x w-full flex gap-12 md:gap-16 lg:gap-20 overflow-x-auto">
+        {% templatetag openblock %} for related_page in page.related_pages.specific {% templatetag closeblock %}
+            <div class="snap-start min-w-80">
+                {% templatetag openblock %} include "components/card.html" with page=related_page {% templatetag closeblock %}
+            </div>
+        {% templatetag openblock %} endfor {% templatetag closeblock %}
+    </div>
+</section>
+{% templatetag openblock %} endif {% templatetag closeblock %}
