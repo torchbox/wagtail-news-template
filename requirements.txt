@@ -3,3 +3,4 @@ wagtail>=6.0,<6.1
 dj-database-url
 psycopg
 whitenoise
+gunicorn==20.0.4
