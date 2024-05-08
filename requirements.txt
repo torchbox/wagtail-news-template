@@ -1,6 +1,6 @@
 django>=4.2,<5.1
 wagtail>=6.0,<6.1
 dj-database-url
-psycopg
+psycopg[binary]
 whitenoise
 gunicorn==20.0.4
