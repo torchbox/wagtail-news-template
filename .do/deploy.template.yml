@@ -17,8 +17,6 @@ spec:
       envs:
         - key: DATABASE_URL
           value: ${wagtail-db.DATABASE_URL}
-        - key: AWS_S3_ENDPOINT_URL
-          value: https://${_self.AWS_S3_REGION_NAME}.digitaloceanspaces.com
         - key: CSRF_TRUSTED_ORIGINS
           value: ${APP_URL}
         - key: ALLOWED_HOSTS
@@ -33,6 +31,8 @@ spec:
           value: changeme
         - key: AWS_S3_REGION_NAME
           value: changeme
+        - key: AWS_S3_ENDPOINT_URL
+          value: https://changeme.digitaloceanspaces.com
 
   ingress:
     rules:
