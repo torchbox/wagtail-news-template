@@ -1,47 +1,52 @@
-# Use an official Python runtime based on Debian 10 "buster" as a parent image.
-FROM python:3.8.1-slim-buster
+FROM python:3.12-slim as production
 
-# Add user that will be used in the container.
-RUN useradd wagtail
+# Install dependencies in a virtualenv
+ENV VIRTUAL_ENV=/venv
 
-# Port used by this container to serve HTTP.
-EXPOSE 8000
+RUN useradd wagtail --create-home && mkdir /app $VIRTUAL_ENV && chown -R wagtail /app $VIRTUAL_ENV
 
-# Set environment variables.
-# 1. Force Python stdout and stderr streams to be unbuffered.
-# 2. Set PORT variable that is used by Gunicorn. This should match "EXPOSE"
-#    command.
-ENV PYTHONUNBUFFERED=1 \
-    PORT=8000
-
-# Install system packages required by Wagtail and Django.
-RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
-    build-essential \
-    libjpeg62-turbo-dev \
-    zlib1g-dev \
-    libwebp-dev \
- && rm -rf /var/lib/apt/lists/*
-
-# Install the project requirements.
-COPY requirements.txt /
-RUN pip install -r /requirements.txt
-
-# Use /app folder as a directory where the source code is stored.
 WORKDIR /app
 
-# Set this directory to be owned by the "wagtail" user. This Wagtail project
-# uses SQLite, the folder needs to be owned by the user that
-# will be writing to the database file.
-RUN chown wagtail:wagtail /app
+# Set default environment variables. They are used at build time and runtime.
+# If you specify your own environment variables on Heroku or Dokku, they will
+# override the ones set here. The ones below serve as sane defaults only.
+#  * PATH - Make sure that Poetry is on the PATH, along with our venv
+#  * PYTHONUNBUFFERED - This is useful so Python does not hold any messages
+#    from being output.
+#    https://docs.python.org/3.12/using/cmdline.html#envvar-PYTHONUNBUFFERED
+#    https://docs.python.org/3.12/using/cmdline.html#cmdoption-u
+#  * DJANGO_SETTINGS_MODULE - default settings used in the container.
+#  * PORT - default port used. Please match with EXPOSE so it works on Dokku.
+#    Heroku will ignore EXPOSE and only set PORT variable. PORT variable is
+#    read/used by Gunicorn.
+ENV PATH=$VIRTUAL_ENV/bin:$PATH \
+    PYTHONUNBUFFERED=1 \
+    DJANGO_SETTINGS_MODULE={{ project_name }}.settings.production \
+    PORT=8000
 
-# Copy the source code of the project into the container.
-COPY --chown=wagtail:wagtail . .
+# Port exposed by this container. Should default to the port used by your WSGI
+# server (Gunicorn).
+EXPOSE 8000
 
-# Use user "wagtail" to run the build commands below and the server itself.
+RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+    build-essential \
+    && apt-get autoremove && rm -rf /var/lib/apt/lists/*
+
+# Don't use the root user as it's an anti-pattern
 USER wagtail
 
-# Collect static files.
-RUN python manage.py collectstatic --noinput --clear
+# Install your app's Python requirements.
+RUN python -m venv $VIRTUAL_ENV
+COPY requirements.txt ./
+RUN pip install --no-cache -r requirements.txt
+
+# Copy application code.
+COPY --chown=wagtail . .
+
+# Collect static. This command will move static files from application
+# directories and "static_compiled" folder to the main static directory that
+# will be served by the WSGI server.
+RUN SECRET_KEY=none python manage.py collectstatic --noinput --clear
 
 # Runtime command that executes when "docker run" is called, it does the
 # following:
