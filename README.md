@@ -63,14 +63,21 @@ This Django project template is designed for creating Wagtail builds quickly, in
 
 ## Contributing
 
-To customize this template for your specific project needs, follow these steps:
+To customize this template, you can either make changes directly or backport changes from a generated project (via the `wagtail start` command) by following these steps:
 
 1. Create a new project using the provided instructions in the [Getting Started](#getting-started) section.
-2. Make changes and customizations within the new project.
-3. Once you've completed your modifications, backport them to the original template. You can do this manually or by replacing occurrences of `myproject` with `{{ project_name }}` including the name for the app folder with `project_name` (without double curly brackets). before transferring the updated code to the root repository.
-4. Template files (.html), have to be modified using `templatetag openblock`. It may be easier to alter the root directory directly instead, however a general rule is to replace opening template tags with `templatetag openblock` and closing tags with `templatetag closeblock`, similary double curly braces will need to be replaced with `templatetag openvariable`.
-5. Copy any static assets accross using `npm run build:prod` and `./manage.py collectstatic`. 
+2. Make changes within the new project.
+3. Once you've completed your changes, you'll need to copy them over to the original project template, making sure to:
+
+    3.1. Replace occurrences of `myproject` with `{{ project_name }}`
+    
+    3.2. Rename the project directory from `myproject` to `project_name` (without double curly brackets this time).
+    
+    3.3. Wrap template code (`.html` files under the templates directory), with a [verbatim tag](https://docs.djangoproject.com/en/5.0/ref/templates/builtins/#std-templatetag-verbatim) or similar [templatetag](https://docs.djangoproject.com/en/5.0/ref/templates/builtins/#templatetag) to prevent template tags being rendered on `wagtail start` ([see django's rendering warning](https://docs.djangoproject.com/en/5.0/ref/django-admin/#render-warning)).
+5. Update compiled static assets using `npm run build:prod`. 
 6. Update fixtures using `make dump-data`
+
+Make sure to test any changes by reviewing them against a newly created project, by following the [Getting Started](#getting-started) instructions again.
 
 
 Happy coding with Wagtail! If you encounter any issues or have suggestions for improvement, feel free to contribute or open an issue.
