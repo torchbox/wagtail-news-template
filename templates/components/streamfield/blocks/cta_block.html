@@ -1,19 +1,21 @@
-{% templatetag openblock %} load wagtailcore_tags {% templatetag closeblock %}
+{% verbatim %}
+{% load wagtailcore_tags %}
 
 <div class="bg-mackerel-200 text-mackerel-400 dark:text-mackerel-400 p-10 md:px-20 flex gap-5 flex-col md:flex-row justify-between md:items-center rounded-[30px]">
     <div class="">
         <h2 class="
             font-serif4 text-3xl md:text-5xl font-semibold mb-2
         ">
-            {% templatetag openvariable %} value.heading {% templatetag closevariable %}
+            {{ value.heading }}
         </h2>
-        {% templatetag openblock %} if value.description {% templatetag closeblock %}
+        {% if value.description %}
         <p class="text-lg md:text-xl">
-            {% templatetag openvariable %} value.description {% templatetag closevariable %}
+            {{ value.description }}
         </p>
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% endif %}
     </div>
-    {% templatetag openblock %} with cta_link=value.link.0 {% templatetag closeblock %}
-        {% templatetag openblock %} include "components/button.html" with title=cta_link.value.get_title url=cta_link.value.get_url classes='w-full md:w-auto' {% templatetag closeblock %}
-    {% templatetag openblock %} endwith {% templatetag closeblock %}
+    {% with cta_link=value.link.0 %}
+        {% include "components/button.html" with title=cta_link.value.get_title url=cta_link.value.get_url classes='w-full md:w-auto' %}
+    {% endwith %}
 </div>
+{% endverbatim %}

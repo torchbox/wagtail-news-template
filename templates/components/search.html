@@ -1,43 +1,43 @@
-
-<form action="{% templatetag openblock %} url 'search' {% templatetag closeblock %}" method="get" role="search"
+{% verbatim %}
+<form action="{% url 'search' %}" method="get" role="search"
     class="
-        {% templatetag openblock %} if variant == 'search-panel' {% templatetag closeblock %}
+        {% if variant == 'search-panel' %}
             site-container 
             px-10 md:px-20
             w-full
             m-auto
             flex
             justify-end
-        {% templatetag openblock %} elif variant == 'mobile-menu' {% templatetag closeblock %}
+        {% elif variant == 'mobile-menu' %}
             py-14
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% endif %}
     ">
     <div 
         class="
         flex 
         grow
-        {% templatetag openblock %} if variant != 'mobile-menu' {% templatetag closeblock %}
+        {% if variant != 'mobile-menu' %}
             flex-col 
             md:flex-row
             max-w-[520px]
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% endif %}
         "
-        {% templatetag openblock %} if variant == "search-panel" {% templatetag closeblock %}
+        {% if variant == "search-panel" %}
             data-search-content
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% endif %}
     >
         <input
             class="
-            {% templatetag openblock %} if variant == 'mobile-menu' {% templatetag closeblock %}
+            {% if variant == 'mobile-menu' %}
             bg-white
             bg-opacity-20
             placeholder:text-white
             text-white
             dark:text-white
-            {% templatetag openblock %} else {% templatetag closeblock %}
+            {% else %}
                 bg-white dark:bg-mackerel-100 
                 mb-3 md:mb-0
-            {% templatetag openblock %} endif {% templatetag closeblock %}
+            {% endif %}
             border border-mackerel-200 
             placeholder:text-base text-base 
             w-full h-[50px] 
@@ -48,20 +48,20 @@
             aria-label="Search our website"
             placeholder="Search our website"
             name="query"
-            {% templatetag openblock %} if variant == "search-panel" {% templatetag closeblock %}
+            {% if variant == "search-panel" %}
                 data-search-input
-            {% templatetag openblock %} endif {% templatetag closeblock %}
+            {% endif %}
         />
         <button 
             class="
-            {% templatetag openblock %} if variant == 'mobile-menu' {% templatetag closeblock %}
+            {% if variant == 'mobile-menu' %}
             text-white 
             bg-mackerel-400
-            {% templatetag openblock %} else {% templatetag closeblock %}
+            {% else %}
                 text-white 
                 dark:text-mackerel-400 
                 bg-mackerel-300 
-            {% templatetag openblock %} endif {% templatetag closeblock %}
+            {% endif %}
             px-5 
             py-3 
             justify-center 
@@ -78,3 +78,4 @@
         </button>
     </div>
 </form>
+{% endverbatim %}

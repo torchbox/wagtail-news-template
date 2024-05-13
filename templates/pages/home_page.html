@@ -1,13 +1,14 @@
-{% templatetag openblock %} extends "base_page.html" {% templatetag closeblock %}
-{% templatetag openblock %} load wagtailcore_tags wagtailimages_tags static {% templatetag closeblock %}
+{% verbatim %}
+{% extends "base_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags static %}
 
-{% templatetag openblock %} block content {% templatetag closeblock %}
+{% block content %}
     <div class="site-padding site-container">
         <div class="relative max-w-[872px] pt-32 tall:pt-40 pb-40 md:pb-60">
             <h1 class="font-serif4 [word-spacing:-6px] font-bold text-7xl lg:text-10xl">
-                {% templatetag openvariable %} page.title {% templatetag closevariable %}
+                {{ page.title }}
             </h1>
-            {# Dashed square decoration #}
+            
             <div class="
                 absolute
                 overflow-hidden
@@ -29,18 +30,19 @@
             >
             </div>
             <div class="max-w-[636px] pt-5 rich-text">
-                {% templatetag openvariable %} page.introduction|richtext {% templatetag closevariable %}
+                {{ page.introduction|richtext }}
             </div>
-            {% templatetag openblock %} if page.hero_cta {% templatetag closeblock %}
+            {% if page.hero_cta %}
                 <div class="pt-10">
-                    {% templatetag openblock %} include "components/button.html" with title=page.hero_cta.0.value.get_title url=page.hero_cta.0.value.get_url {% templatetag closeblock %}
+                    {% include "components/button.html" with title=page.hero_cta.0.value.get_title url=page.hero_cta.0.value.get_url %}
                 </div>
-            {% templatetag openblock %} endif {% templatetag closeblock %}
+            {% endif %}
         </div>
     </div>
 
-    {% templatetag openblock %} include_block page.body {% templatetag closeblock %}
+    {% include_block page.body %}
 
-    {% templatetag openblock %} include "components/related-pages.html" {% templatetag closeblock %}
+    {% include "components/related-pages.html" %}
 
-{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% endblock %}
+{% endverbatim %}

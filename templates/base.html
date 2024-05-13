@@ -1,31 +1,32 @@
-{% templatetag openblock %} load static wagtailcore_tags wagtailuserbar {% templatetag closeblock %}
+{% verbatim %}
+{% load static wagtailcore_tags wagtailuserbar %}
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
         <title>
-            {% templatetag openblock %} block title {% templatetag closeblock %}
-            {% templatetag openblock %} if page.seo_title {% templatetag closeblock %}{% templatetag openvariable %} page.seo_title {% templatetag closevariable %}{% templatetag openblock %} else {% templatetag closeblock %}{% templatetag openvariable %} page.title {% templatetag closevariable %}{% templatetag openblock %} endif {% templatetag closeblock %}
-            {% templatetag openblock %} endblock {% templatetag closeblock %}
-            {% templatetag openblock %} block title_suffix {% templatetag closeblock %}
-            {% templatetag openblock %} wagtail_site as current_site {% templatetag closeblock %}
-            {% templatetag openblock %} if current_site and current_site.site_name {% templatetag closeblock %}- {% templatetag openvariable %} current_site.site_name {% templatetag closevariable %}{% templatetag openblock %} endif {% templatetag closeblock %}
-            {% templatetag openblock %} endblock {% templatetag closeblock %}
+            {% block title %}
+            {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+            {% wagtail_site as current_site %}
+            {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+            {% endblock %}
         </title>
-        {% templatetag openblock %} if page.search_description {% templatetag closeblock %}
-        <meta name="description" content="{% templatetag openvariable %} page.search_description {% templatetag closevariable %}" />
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% if page.search_description %}
+        <meta name="description" content="{{ page.search_description }}" />
+        {% endif %}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-        {% templatetag openblock %} comment {% templatetag closeblock %}
+        {% comment %}
         Set "noindex" if the site is not being requested on a configured
         domain to prevent search engines crawling admin domains.
-        {% templatetag openblock %} endcomment {% templatetag closeblock %}
-        {% templatetag openblock %} if SEO_NOINDEX and not page.appear_in_search_results {% templatetag closeblock %}
+        {% endcomment %}
+        {% if SEO_NOINDEX and not page.appear_in_search_results %}
             <meta name="robots" content="noindex">
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% endif %}
 
         <!-- TODO update -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,39 +34,40 @@
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
 
 
-        {# Force all links in the live preview panel to be opened in a new tab #}
-        {% templatetag openblock %} if request.in_preview_panel {% templatetag closeblock %}
+        
+        {% if request.in_preview_panel %}
         <base target="_blank">
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% endif %}
 
-        {% templatetag openblock %} block meta_tags {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
+        {% block meta_tags %}{% endblock %}
 
-        {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% templatetag openblock %} static 'css/main.css' {% templatetag closeblock %}">
+        
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
-        {% templatetag openblock %} block extra_css {% templatetag closeblock %}
-        {# Override this in templates to add extra stylesheets #}
-        {% templatetag openblock %} endblock {% templatetag closeblock %}
+        {% block extra_css %}
+        
+        {% endblock %}
     </head>
 
-    <body class="{% templatetag openblock %} block body_class {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}">
-        {% templatetag openblock %} wagtailuserbar {% templatetag closeblock %}
+    <body class="{% block body_class %}{% endblock %}">
+        {% wagtailuserbar %}
 
-        {% templatetag openblock %} block header {% templatetag closeblock %}{% templatetag openblock %} endblock header {% templatetag closeblock %}
+        {% block header %}{% endblock header %}
 
         <main class="flex-1" id="main-content">
-            {% templatetag openblock %} block content {% templatetag closeblock %}
+            {% block content %}
 
-            {% templatetag openblock %} endblock content {% templatetag closeblock %}
+            {% endblock content %}
         </main>
 
-        {% templatetag openblock %} block footer {% templatetag closeblock %}{% templatetag openblock %} endblock footer {% templatetag closeblock %}
+        {% block footer %}{% endblock footer %}
 
-        {# Global javascript #}
-        <script type="text/javascript" src="{% templatetag openblock %} static 'js/main.js' {% templatetag closeblock %}"></script>
+        
+        <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 
-        {% templatetag openblock %} block extra_js {% templatetag closeblock %}
-        {# Override this in templates to add extra javascript #}
-        {% templatetag openblock %} endblock {% templatetag closeblock %}
+        {% block extra_js %}
+        
+        {% endblock %}
     </body>
 </html>
+{% endverbatim %}

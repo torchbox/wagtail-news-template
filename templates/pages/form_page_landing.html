@@ -1,22 +1,24 @@
-{% templatetag openblock %} extends "base_page.html" {% templatetag closeblock %}
-{% templatetag openblock %} load wagtailcore_tags {% templatetag closeblock %}
+{% verbatim %}
+{% extends "base_page.html" %}
+{% load wagtailcore_tags %}
 
 
-{% templatetag openblock %} block content {% templatetag closeblock %}
-    {% templatetag openblock %} block breadcrumbs {% templatetag closeblock %}
-        {% templatetag openblock %} include "navigation/breadcrumbs.html" {% templatetag closeblock %}
-    {% templatetag openblock %} endblock {% templatetag closeblock %}
+{% block content %}
+    {% block breadcrumbs %}
+        {% include "navigation/breadcrumbs.html" %}
+    {% endblock %}
     <div class="site-padding site-container">
 
         <div class="flex flex-col py-20">
             <h1 class="font-serif4 [word-spacing:-6px] font-bold text-8xl lg:text-10xl">
-                {% templatetag openvariable %} page.title {% templatetag closevariable %}
+                {{ page.title }}
             </h1>
-            {% templatetag openblock %} if page.thank_you_text {% templatetag closeblock %}
+            {% if page.thank_you_text %}
                 <div class="max-w-[636px] pt-7 rich-text md:w-2/3">
-                    {% templatetag openvariable %} page.thank_you_text|richtext {% templatetag closevariable %}
+                    {{ page.thank_you_text|richtext }}
                 </div>
-            {% templatetag openblock %} endif {% templatetag closeblock %}
+            {% endif %}
         </div>
     </div>
-{% templatetag openblock %} endblock content {% templatetag closeblock %}
+{% endblock content %}
+{% endverbatim %}

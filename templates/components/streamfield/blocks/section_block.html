@@ -1,8 +1,9 @@
+{% verbatim %}
+{% load wagtailcore_tags %}
 
-{% templatetag openblock %} load wagtailcore_tags {% templatetag closeblock %}
+{% include "components/streamfield/blocks/heading2_block.html" with value=value.heading %}
 
-{% templatetag openblock %} include "components/streamfield/blocks/heading2_block.html" with value=value.heading {% templatetag closeblock %}
-
-{% templatetag openblock %} for block in value.content {% templatetag closeblock %}
-    {% templatetag openblock %} include_block block {% templatetag closeblock %}
-{% templatetag openblock %} endfor {% templatetag closeblock %}
+{% for block in value.content %}
+    {% include_block block %}
+{% endfor %}
+{% endverbatim %}

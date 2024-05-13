@@ -1,5 +1,6 @@
-{% templatetag openblock %} load wagtailcore_tags wagtailsettings_tags {% templatetag closeblock %}
-{% templatetag openblock %} wagtail_site as current_site {% templatetag closeblock %}
+{% verbatim %}
+{% load wagtailcore_tags wagtailsettings_tags %}
+{% wagtail_site as current_site %}
 
 
 <header class="site-container w-full px-10 pt-14 pb-8 md:py-8 md:px-20">
@@ -9,10 +10,10 @@
             data-header-logo
             class="header-logo z-30 uppercase font-semibold text-3xl"
             aria-label="Go to the Wagtail Starter Kit homepage">
-            {% templatetag openvariable %} current_site.site_name|default:"Site name" {% templatetag closevariable %}
+            {{ current_site.site_name|default:"Site name" }}
         </a>
 
-        {# Mobile menu buttom, only visible at mobile #}
+        
         <div class="flex md:hidden items-center gap-4">
             <button 
                 class="z-30 button-menu-toggle" 
@@ -27,12 +28,12 @@
             </button>
         </div>
         
-        {# Desktop navigation menu #}
+        
         <nav aria-label="Primary" class="hidden md:block">
             <ul class="flex gap-x-12 lg:gap-x-14">
-                {% templatetag openblock %} for link in settings.navigation.NavigationSettings.primary_navigation {% templatetag closeblock %}
+                {% for link in settings.navigation.NavigationSettings.primary_navigation %}
                     <li>
-                        {% templatetag openblock %} if link.value.page {% templatetag closeblock %}
+                        {% if link.value.page %}
                             <a 
                                 class="
                                 flex 
@@ -46,13 +47,13 @@
                                 decoration-mackerel-200
                                 hover:decoration-mackerel-300
                                 " 
-                                href="{% templatetag openvariable %} link.value.get_url {% templatetag closevariable %}" 
+                                href="{{ link.value.get_url }}" 
                             >
-                                {% templatetag openvariable %} link.value.get_title {% templatetag closevariable %}
+                                {{ link.value.get_title }}
                             </a>
-                        {% templatetag openblock %} endif {% templatetag closeblock %}
+                        {% endif %}
                     </li>
-                {% templatetag openblock %} endfor {% templatetag closeblock %}
+                {% endfor %}
                 <li class="flex items-center">
                     <button 
                         data-toggle-search-panel
@@ -65,17 +66,17 @@
                         <span class="sr-only">
                         Search 
                         </span>
-                        {% templatetag openblock %} include "icons/magnifying-glass.html" with class="fill-current w-5 h-5" {% templatetag closeblock %}
+                        {% include "icons/magnifying-glass.html" with class="fill-current w-5 h-5" %}
                     </button>
                 </li>
                 <li>
-                    {% templatetag openblock %} include "components/theme-toggle.html" {% templatetag closeblock %}
+                    {% include "components/theme-toggle.html" %}
                 </li>
             </ul>
         </nav>
     </div>
 
-    {# Mobile navigation menu #}
+    
     <section 
         class="
         md:hidden 
@@ -97,14 +98,14 @@
     >
     <nav aria-label="Primary" class="py-32">
         <ul class="flex flex-col pt-5">
-            {% templatetag openblock %} for link in settings.navigation.NavigationSettings.primary_navigation {% templatetag closeblock %}
+            {% for link in settings.navigation.NavigationSettings.primary_navigation %}
                 <li class="
                     border-t-[1px]
                     border-dashed
                     border-mackerel-200
                     last-of-type:border-b-[1px]
                 ">
-                    {% templatetag openblock %} if link.value.page {% templatetag closeblock %}
+                    {% if link.value.page %}
                         <a 
                             class="
                             flex
@@ -120,20 +121,20 @@
                             hover:decoration-white
                             decoration-[1.5px]
                             " 
-                            href="{{ link.value.get_url }}" 
+                            href="" 
                         >
-                             {% templatetag openvariable %} link.value.get_title {% templatetag closevariable %}
+                             {{ link.value.get_title }}
                         </a>
-                    {% templatetag openblock %} endif {% templatetag closeblock %}
+                    {% endif %}
                 </li>
-            {% templatetag openblock %} endfor {% templatetag closeblock %}
+            {% endfor %}
         </ul>
-        {% templatetag openblock %} include "components/search.html" with variant="mobile-menu" {% templatetag closeblock %}
-        {% templatetag openblock %} include "components/theme-toggle.html" {% templatetag closeblock %}
+        {% include "components/search.html" with variant="mobile-menu" %}
+        {% include "components/theme-toggle.html" %}
     </nav>
     </section>
 
-    {# Search panel, desktop only displayed via data-toggle-search #}
+    
     <div 
         id="search-panel"
         data-search-panel
@@ -152,6 +153,7 @@
         bg-opacity-20
         "
     >
-        {% templatetag openblock %} include "components/search.html" with variant="search-panel" {% templatetag closeblock %}
+        {% include "components/search.html" with variant="search-panel" %}
     </div>
 </header>
+{% endverbatim %}

@@ -1,4 +1,5 @@
-{% templatetag openblock %} load wagtailcore_tags wagtailsettings_tags wagtailimages_tags {% templatetag closeblock %}
+{% verbatim %}
+{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags %}
 
 <div class="flex flex-col 
     md:flex-row
@@ -18,34 +19,34 @@ w-full h-full group
         lg:max-w-[345px]
         w-full 
     ">
-        {% templatetag openblock %} if page.listing_image {% templatetag closeblock %}
-            {% templatetag openblock %} image page.listing_image format-jpeg fill-800x600 as card_image_1x_jpg {% templatetag closeblock %}
-            {% templatetag openblock %} image page.listing_image format-jpeg fill-1600x1200 as card_image_2x_jpg {% templatetag closeblock %}
-            {% templatetag openblock %} image page.listing_image format-webp fill-800x600 as card_image_1x_webp {% templatetag closeblock %}
-            {% templatetag openblock %} image page.listing_image format-webp fill-1600x1200 as card_image_2x_webp {% templatetag closeblock %}
-        {% templatetag openblock %} else {% templatetag closeblock %}
-            {# fallback to placeholder image #}
-            {% templatetag openblock %} image settings.utils.SystemMessagesSettings.get_placeholder_image format-jpeg fill-800x600 as card_image_1x_jpg {% templatetag closeblock %}
-            {% templatetag openblock %} image settings.utils.SystemMessagesSettings.get_placeholder_image format-jpeg fill-1600x1200 as card_image_2x_jpg {% templatetag closeblock %}
-            {% templatetag openblock %} image settings.utils.SystemMessagesSettings.get_placeholder_image format-webp fill-800x600 as card_image_1x_webp {% templatetag closeblock %}
-            {% templatetag openblock %} image settings.utils.SystemMessagesSettings.get_placeholder_image format-webp fill-1600x1200 as card_image_2x_webp {% templatetag closeblock %}
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% if page.listing_image %}
+            {% image page.listing_image format-jpeg fill-800x600 as card_image_1x_jpg %}
+            {% image page.listing_image format-jpeg fill-1600x1200 as card_image_2x_jpg %}
+            {% image page.listing_image format-webp fill-800x600 as card_image_1x_webp %}
+            {% image page.listing_image format-webp fill-1600x1200 as card_image_2x_webp %}
+        {% else %}
+            
+            {% image settings.utils.SystemMessagesSettings.get_placeholder_image format-jpeg fill-800x600 as card_image_1x_jpg %}
+            {% image settings.utils.SystemMessagesSettings.get_placeholder_image format-jpeg fill-1600x1200 as card_image_2x_jpg %}
+            {% image settings.utils.SystemMessagesSettings.get_placeholder_image format-webp fill-800x600 as card_image_1x_webp %}
+            {% image settings.utils.SystemMessagesSettings.get_placeholder_image format-webp fill-1600x1200 as card_image_2x_webp %}
+        {% endif %}
         <picture>
-            <source srcset="{% templatetag openvariable %} card_image_1x_webp.url {% templatetag closevariable %} 1x, {% templatetag openvariable %} card_image_2x_webp.url {% templatetag closevariable %} 2x" type="image/webp" />
-            <source srcset="{% templatetag openvariable %} card_image_1x_jpg.url {% templatetag closevariable %} 1x, {% templatetag openvariable %} card_image_2x_jpg.url {% templatetag closevariable %} 2x" type="image/jpeg" />
+            <source srcset="{{ card_image_1x_webp.url }} 1x, {{ card_image_2x_webp.url }} 2x" type="image/webp" />
+            <source srcset="{{ card_image_1x_jpg.url }} 1x, {{ card_image_2x_jpg.url }} 2x" type="image/jpeg" />
             <img
-                src="{% templatetag openvariable %} card_image_1x_webp.url {% templatetag closevariable %}"
-                width="{% templatetag openvariable %} card_image_1x_webp.width {% templatetag closevariable %}"
-                height="{% templatetag openvariable %} card_image_1x_webp.height {% templatetag closevariable %}"
-                alt="{% templatetag openvariable %} card_image_1x_webp.alt {% templatetag closevariable %}"
+                src="{{ card_image_1x_webp.url }}"
+                width="{{ card_image_1x_webp.width }}"
+                height="{{ card_image_1x_webp.height }}"
+                alt="{{ card_image_1x_webp.alt }}"
 
                 class="
                 aspect-[20/11] 
                 md:aspect-[1]
                 w-full h-full object-cover"
-                {% templatetag openblock %} if card_image_1x_webp.focal_point {% templatetag closeblock %}
-                style='{% templatetag openvariable %} card_image_1x_webp.object_position_style {% templatetag closevariable %}'
-                {% templatetag openblock %} endif {% templatetag closeblock %}
+                {% if card_image_1x_webp.focal_point %}
+                style='{{ card_image_1x_webp.object_position_style }}'
+                {% endif %}
             />
         </picture>
     </div>
@@ -57,17 +58,17 @@ w-full h-full group
         md:flex-col
         md:max-w-[767px]
     ">
-        {% templatetag openblock %} if page.display_date {% templatetag closeblock %}
+        {% if page.display_date %}
             <p class="text-sm md:text-base text-grey-700 dark:text-grey-200 font-codepro pt-7 md:pt-0 pb-2.5">
                 <span class="text-sm md:text-base text-mackerel-300 font-medium uppercase mr-1">
-                    {% templatetag openvariable %} page.topic {% templatetag closevariable %}
-                </span>{% templatetag openblock %} include "icons/slash.html" with class="inline fill-current w-2.5 h-2.5" {% templatetag closeblock %}{% templatetag openblock %} include "icons/slash.html" with class="inline fill-current w-2.5 h-2.5" {% templatetag closeblock %}<span class="text-sm md:text-base text-grey-700 dark:text-grey-200 ml-1">
-                    {% templatetag openvariable %} page.display_date {% templatetag closevariable %}
+                    {{ page.topic }}
+                </span>{% include "icons/slash.html" with class="inline fill-current w-2.5 h-2.5" %}{% include "icons/slash.html" with class="inline fill-current w-2.5 h-2.5" %}<span class="text-sm md:text-base text-grey-700 dark:text-grey-200 ml-1">
+                    {{ page.display_date }}
                 </span>
             </p>
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% endif %}
         <a
-            href="{% templatetag openblock %} pageurl page {% templatetag closeblock %}"
+            href="{% pageurl page %}"
             class="
             text-xl md:text-2xl font-bold leading-8 md:leading-10
             underline
@@ -77,24 +78,25 @@ w-full h-full group
             hover:decoration-mackerel-300
             "
         >
-            {% templatetag openblock %} firstof page.listing_title page.title {% templatetag closeblock %}
+            {% firstof page.listing_title page.title %}
         </a>
         <p class="text-grey-700 dark:text-grey-200 pt-2.5 leading-6">
-            {% templatetag openblock %} firstof page.listing_summary page.plain_introduction {% templatetag closeblock %}
+            {% firstof page.listing_summary page.plain_introduction %}
         </p>
-        {% templatetag openblock %} if page.author {% templatetag closeblock %}
+        {% if page.author %}
             <div class="flex flex-row items-center gap-3 text-sm md:text-base text-grey-700 dark:text-grey-200 font-codepro pt-7">
-                {% templatetag openblock %} image page.author.image format-webp fill-60x60 gray as author_avatar {% templatetag closeblock %}
+                {% image page.author.image format-webp fill-60x60 gray as author_avatar %}
 
             <img
-                src="{% templatetag openvariable %} author_avatar.url {% templatetag closevariable %}"
-                width="{% templatetag openvariable %} author_avatar.width {% templatetag closevariable %}"
-                height="{% templatetag openvariable %} author_avatar.height {% templatetag closevariable %}"
-                alt="{% templatetag openvariable %} author_avatar.alt {% templatetag closevariable %}"
+                src="{{ author_avatar.url }}"
+                width="{{ author_avatar.width }}"
+                height="{{ author_avatar.height }}"
+                alt="{{ author_avatar.alt }}"
                 class="w-10 h-10 rounded-full"
             />  
-                {% templatetag openvariable %} page.author.title {% templatetag closevariable %}
+                {{ page.author.title }}
             </div>
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% endif %}
     </div>
 </div>
+{% endverbatim %}

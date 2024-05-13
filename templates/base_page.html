@@ -1,24 +1,26 @@
-{% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
+{% verbatim %}
+{% extends "base.html" %}
 
-{% templatetag openblock %} load static wagtailuserbar wagtailcore_tags wagtailimages_tags util_tags {% templatetag closeblock %}
+{% load static wagtailuserbar wagtailcore_tags wagtailimages_tags util_tags %}
 
-{% templatetag openblock %} wagtail_site as current_site {% templatetag closeblock %}
+{% wagtail_site as current_site %}
 
-{% templatetag openblock %} block meta_tags {% templatetag closeblock %}
+{% block meta_tags %}
 
-<link rel="icon" href="{% templatetag openblock %} static 'images/favicons/favicon.ico' {% templatetag closeblock %}" sizes="32x32">
-<link rel="icon" href="{% templatetag openblock %} static 'images/favicons/favicon.svg'{% templatetag closeblock %}" type="image/svg+xml">
-<link rel="apple-touch-icon" href="{% templatetag openblock %} static 'images/favicons/apple-touch-icon.png' {% templatetag closeblock %}">
-<link rel="manifest" href="{% templatetag openblock %} static 'images/favicons/favicon.webmanifest' {% templatetag closeblock %}">
+<link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" sizes="32x32">
+<link rel="icon" href="{% static 'images/favicons/favicon.svg'%}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{% static 'images/favicons/apple-touch-icon.png' %}">
+<link rel="manifest" href="{% static 'images/favicons/favicon.webmanifest' %}">
 <meta name="theme-color" content="#26899E"/>
 
-{% templatetag openblock %} endblock meta_tags {% templatetag closeblock %}
+{% endblock meta_tags %}
 
-{% templatetag openblock %} block header {% templatetag closeblock %}
-    {% templatetag openblock %} include "navigation/header.html" {% templatetag closeblock %}
-{% templatetag openblock %} endblock header {% templatetag closeblock %}
+{% block header %}
+    {% include "navigation/header.html" %}
+{% endblock header %}
 
 
-{% templatetag openblock %} block footer {% templatetag closeblock %}
-    {% templatetag openblock %} include "navigation/footer.html" {% templatetag closeblock %}
-{% templatetag openblock %} endblock footer {% templatetag closeblock %}
+{% block footer %}
+    {% include "navigation/footer.html" %}
+{% endblock footer %}
+{% endverbatim %}
