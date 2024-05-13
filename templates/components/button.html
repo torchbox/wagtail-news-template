@@ -1,30 +1,32 @@
-{% templatetag openblock %} if url {% templatetag closeblock %}
+{% verbatim %}
+{% if url %}
     <a 
-        href="{% templatetag openvariable %} url {% templatetag closevariable %}" 
+        href="{{ url }}" 
         class="
-        {% templatetag openvariable %} classes {% templatetag closevariable %}
-        {% templatetag openblock %} if variant == 'footer' {% templatetag closeblock %}
+        {{ classes }}
+        {% if variant == 'footer' %}
             md:px-5
-        {% templatetag openblock %} else {% templatetag closeblock %}
+        {% else %}
             md:px-10
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% endif %}
         text-white bg-mackerel-300 dark:text-mackerel-400
         px-5 py-3 md:py-[15px]
         justify-center items-center text-sm md:text-base font-codepro uppercase inline-flex rounded-[3px]">
-            {% templatetag openvariable %} title {% templatetag closevariable %}
+            {{ title }}
     </a>
-{% templatetag openblock %} else {% templatetag closeblock %}
+{% else %}
     <button 
         class="
-        {% templatetag openvariable %} classes {% templatetag closevariable %}
-        {% templatetag openblock %} if variant == 'footer' {% templatetag closeblock %}
+        {{ classes }}
+        {% if variant == 'footer' %}
             md:px-5 
-        {% templatetag openblock %} else {% templatetag closeblock %}
+        {% else %}
             md:px-10
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% endif %}
         text-white bg-mackerel-300 dark:text-mackerel-400
         px-5 py-3 md:py-[15px]
         justify-center items-center text-sm md:text-base font-codepro uppercase inline-flex rounded-[3px]">
-        {% templatetag openvariable %} title {% templatetag closevariable %}
+        {{ title }}
     </button>
-{% templatetag openblock %} endif {% templatetag closeblock %}
+{% endif %}
+{% endverbatim %}

@@ -1,24 +1,25 @@
-{% templatetag openblock %} extends "base_page.html" {% templatetag closeblock %}
-{% templatetag openblock %} load wagtailcore_tags wagtailimages_tags static {% templatetag closeblock %}
+{% verbatim %}
+{% extends "base_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags static %}
 
-{% templatetag openblock %} block content {% templatetag closeblock %}
-    {% templatetag openblock %} block breadcrumbs {% templatetag closeblock %}
-        {% templatetag openblock %} include "navigation/breadcrumbs.html" {% templatetag closeblock %}
-    {% templatetag openblock %} endblock {% templatetag closeblock %}
+{% block content %}
+    {% block breadcrumbs %}
+        {% include "navigation/breadcrumbs.html" %}
+    {% endblock %}
     <div class="site-padding site-container">
 
-        {# Hero #}
+        
         <div class="flex flex-col md:flex-row md:items-center py-20">
             <h1 class="font-serif4 [word-spacing:-6px] font-bold text-8xl lg:text-10xl
             md:pr-16
             lg:pr-20
-            {% templatetag openblock %} if page.introduction {% templatetag closeblock %}
+            {% if page.introduction %}
                 md:border-r-[1px]
                 md:basis-2/6
                 border-grey-200
-            {% templatetag openblock %} endif {% templatetag closeblock %}
+            {% endif %}
             ">
-                {% templatetag openvariable %} page.title {% templatetag closevariable %}
+                {{ page.title }}
             </h1>
         
             <div class="
@@ -31,20 +32,20 @@
                 flex-col
                 gap-2.5
             ">
-                {% templatetag openblock %} if page.introduction {% templatetag closeblock %}
+                {% if page.introduction %}
                     <div class="rich-text">
-                        {% templatetag openvariable %} page.introduction|richtext {% templatetag closevariable %}
+                        {{ page.introduction|richtext }}
                     </div>
-                {% templatetag openblock %} endif {% templatetag closeblock %}
+                {% endif %}
     
-                {% templatetag openblock %} if topics {% templatetag closeblock %}
+                {% if topics %}
                     <div class="
                     flex
                     flex-row
                     pt-7
                     gap-2.5
                     ">
-                    <a href="{% templatetag openblock %} pageurl page {% templatetag closeblock %}" 
+                    <a href="{% pageurl page %}" 
                         class="
                         py-2.5 px-5
                         text-sm
@@ -54,36 +55,36 @@
                         border-[1px] 
                         rounded-[85px]
 
-                        {% templatetag openblock %} if matching_topic {% templatetag closeblock %}
+                        {% if matching_topic %}
                         bg-white dark:bg-mackerel-400
                         text-mackerel-300 dark:text-white
                         border-mackerel-300 dark:border-white
                         hover:bg-mackerel-300 hover:dark:bg-white
                         hover:text-white hover:dark:text-mackerel-400
                         hover:border-mackerel-300 hover:dark:border-white
-                        {% templatetag openblock %} else {% templatetag closeblock %}
+                        {% else %}
                         bg-mackerel-300 dark:bg-white
                         text-white dark:text-mackerel-400
                         border-mackerel-300 dark:border-white
                         hover:bg-white hover:dark:bg-mackerel-400
                         hover:text-mackerel-300 hover:dark:text-white
                         hover:border-mackerel-300 hover:dark:border-white
-                        {% templatetag openblock %} endif {% templatetag closeblock %}
+                        {% endif %}
 
                         "
                     >
                         All
                     </a>
-                    {% templatetag openblock %} for topic in topics {% templatetag closeblock %}
+                    {% for topic in topics %}
                         <a 
-                            href="{% templatetag openblock %} pageurl page {% templatetag closeblock %}?topic={% templatetag openvariable %} topic.slug {% templatetag closevariable %}" 
+                            href="{% pageurl page %}?topic={{ topic.slug }}" 
                             class="
                             py-2.5 px-5
                             text-sm
                             uppercase
                             font-codepro
                             font-medium
-                            {% templatetag openblock %} if matching_topic == topic.slug {% templatetag closeblock %}
+                            {% if matching_topic == topic.slug %}
                             bg-mackerel-300 dark:bg-white
                             text-white dark:text-mackerel-400
                             border-mackerel-300 dark:border-white
@@ -91,41 +92,42 @@
                             hover:text-mackerel-300 hover:dark:text-white
                             hover:border-mackerel-300 hover:dark:border-white
                             active:
-                            {% templatetag openblock %} else {% templatetag closeblock %}
+                            {% else %}
                             bg-white dark:bg-mackerel-400
                             text-mackerel-300 dark:text-white
                             border-mackerel-300 dark:border-white
                             hover:bg-mackerel-300 hover:dark:bg-white
                             hover:text-white hover:dark:text-mackerel-400
                             hover:border-mackerel-300 hover:dark:border-white
-                            {% templatetag openblock %} endif {% templatetag closeblock %}
+                            {% endif %}
 
                             border-[1px]
                             rounded-[85px]
                             ">
-                            {% templatetag openvariable %} topic.title {% templatetag closevariable %}
+                            {{ topic.title }}
                         </a>
-                    {% templatetag openblock %} endfor {% templatetag closeblock %}
+                    {% endfor %}
                     </div>
-                {% templatetag openblock %} endif {% templatetag closeblock %}
+                {% endif %}
             </div>
         </div>
 
-        {# Cards #}
-        {% templatetag openblock %} if paginator_page {% templatetag closeblock %}
+        
+        {% if paginator_page %}
             <section class="grid grid-cols-1 gap-8 lg:gap-10 pb-20 md:pb-40">
-                {% templatetag openblock %} for subpage in paginator_page {% templatetag closeblock %}
-                    {% templatetag openblock %} include "components/card--article.html" with page=subpage.specific {% templatetag closeblock %}
-                {% templatetag openblock %} endfor {% templatetag closeblock %}
+                {% for subpage in paginator_page %}
+                    {% include "components/card--article.html" with page=subpage.specific %}
+                {% endfor %}
 
-                {# Pagination #}
-                {% templatetag openblock %} if paginator {% templatetag closeblock %}
-                    {% templatetag openblock %} include "components/pagination.html" with paginator_page=paginator_page {% templatetag closeblock %}
-                {% templatetag openblock %} endif {% templatetag closeblock %}
+                
+                {% if paginator %}
+                    {% include "components/pagination.html" with paginator_page=paginator_page %}
+                {% endif %}
             </section>
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% endif %}
     </div>
 
-    {% templatetag openblock %} include_block page.body {% templatetag closeblock %}
+    {% include_block page.body %}
 
-{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% endblock %}
+{% endverbatim %}

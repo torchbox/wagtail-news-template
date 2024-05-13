@@ -1,11 +1,13 @@
-{% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
+{% verbatim %}
+{% extends "base.html" %}
 
-{% templatetag openblock %} block title {% templatetag closeblock %}Page not found{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% block title %}Page not found{% endblock %}
 
-{% templatetag openblock %} block body_class {% templatetag closeblock %}template-404{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% block body_class %}template-404{% endblock %}
 
-{% templatetag openblock %} block content {% templatetag closeblock %}
+{% block content %}
 <h1>Page not found</h1>
 
 <h2>Sorry, this page could not be found.</h2>
-{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% endblock %}
+{% endverbatim %}
