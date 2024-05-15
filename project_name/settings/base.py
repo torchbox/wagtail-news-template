@@ -177,6 +177,12 @@ STORAGES = {
     },
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "database_cache",
+    }
+}
 
 if "AWS_STORAGE_BUCKET_NAME" in os.environ:
     # Add django-storages to the installed apps
