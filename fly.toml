@@ -1,5 +1,4 @@
 app = 'wagtail-news-template-{{ project_name }}'
-primary_region = 'lhr'
 console_command = '/bin/bash'
 
 [build]

@@ -75,7 +75,8 @@ Before you can deploy to [fly.io](https://fly.io/), you will need an account, as
 
 1. In the root directory of your project (the one with a `fly.toml` file), run `fly launch`
    1. When prompted about copying the existing `fly.toml` file to a new app, choose "Yes".
-   2. When prompted about continuing the setup in the web UI, choose "No".
+   2. When prompted about continuing the setup in the web UI, or tweak the generated settings, choose "No".
+      1. The "Region" will be selected automatically. If you wish to change this, choose "Yes" instead, and modify the region in the browser.
 2. Once the launch is successful, you'll need to [generate a secret key](https://realorangeone.github.io/django-secret-key-generator/)
    1. This can be done using `fly secrets set SECRET_KEY=<key>`, or through the web UI.
 3. Finally (optional), load in the dummy data, to help get you started
