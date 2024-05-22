@@ -1,4 +1,4 @@
-app = 'wagtail-news-template-{{ project_name }}'
+app = 'wagtail-news-template'
 console_command = '/bin/bash'
 
 [build]
