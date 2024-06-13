@@ -44,19 +44,32 @@ This Django project template is designed for creating Wagtail builds quickly, in
     cd myproject
     ```
 
-5. **Load Dummy Data**: Optionally load in some dummy data, to populate the site with some content.
+5. **Install Project Dependencies**: Install the project's dependencies into a virtual environment.
+
+    ```bash
+    python -m venv venv
+
+    source venv/bin/activate  # For Linux / macOS
+    venv/bin/Activate.ps1  # For Windows
+
+    pip install -r requirements.txt
+    ```
+
+All commands from now on should be run from inside the virtual environment.
+
+6. **Load Dummy Data**: Optionally load in some dummy data, to populate the site with some content.
 
     ```bash
     make load-data
     ```
 
-6. **Start the Server**: Start the Django development server.
+7. **Start the Server**: Start the Django development server.
 
     ```bash
     make start
     ```
 
-7. **Access the Site and Admin**: Once the server is running, you can view the site at `localhost:8000` and access the Wagtail admin interface at `localhost:8000/admin`. Log in with the default credentials provided by :
+8. **Access the Site and Admin**: Once the server is running, you can view the site at `localhost:8000` and access the Wagtail admin interface at `localhost:8000/admin`. Log in with the default credentials provided by :
 
     - Username: admin
     - Password: password
