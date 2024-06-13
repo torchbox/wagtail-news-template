@@ -1,19 +1,24 @@
-import os
-import random
-import string
-
-from .base import *
+from .base import *  # noqa
 
 DEBUG = False
 
-# DJANGO_SECRET_KEY *should* be specified in the environment. If it's not, generate an ephemeral key.
-if "DJANGO_SECRET_KEY" in os.environ:
-    SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
-else:
-    # Use if/else rather than a default value to avoid calculating this if we don't need it
-    print(  # noqa: T201
-        "WARNING: DJANGO_SECRET_KEY not found in os.environ. Generating ephemeral SECRET_KEY."
-    )
-    SECRET_KEY = "".join(
-        [random.SystemRandom().choice(string.printable) for i in range(50)]
-    )
+
+# Security configuration
+
+# Ensure that the session cookie is only sent by browsers under an HTTPS connection.
+# https://docs.djangoproject.com/en/stable/ref/settings/#session-cookie-secure
+SESSION_COOKIE_SECURE = True
+
+# Ensure that the CSRF cookie is only sent by browsers under an HTTPS connection.
+# https://docs.djangoproject.com/en/stable/ref/settings/#csrf-cookie-secure
+CSRF_COOKIE_SECURE = True
+
+# Allow the redirect importer to work in load-balanced / cloud environments.
+# https://docs.wagtail.io/en/v2.13/reference/settings.html#redirects
+WAGTAIL_REDIRECTS_FILE_STORAGE = "cache"
+
+# Force HTTPS redirect (enabled by default!)
+SECURE_SSL_REDIRECT = True
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
