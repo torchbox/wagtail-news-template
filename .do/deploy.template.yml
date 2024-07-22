@@ -1,0 +1,51 @@
+spec:
+  name: wagtail
+
+  alerts:
+    - rule: DEPLOYMENT_FAILED
+    - rule: DOMAIN_FAILED
+
+  services:
+    - name: wagtail
+      github:
+        repo: torchbox/wagtail-news-template
+        branch: master
+      dockerfile_path: Dockerfile
+      instance_count: 1
+      instance_size_slug: basic-xxs
+      source_dir: .
+      envs:
+        - key: DATABASE_URL
+          value: ${wagtail-db.DATABASE_URL}
+        - key: CSRF_TRUSTED_ORIGINS
+          value: ${APP_URL}
+        - key: ALLOWED_HOSTS
+          value: ${APP_DOMAIN}
+        - key: SECRET_KEY
+          value: changeme
+        - key: AWS_STORAGE_BUCKET_NAME
+          value: changeme
+        - key: AWS_ACCESS_KEY_ID
+          value: changeme
+        - key: AWS_SECRET_ACCESS_KEY
+          value: changeme
+        - key: AWS_S3_REGION_NAME
+          value: changeme
+        - key: AWS_S3_ENDPOINT_URL
+          value: https://changeme.digitaloceanspaces.com
+
+  ingress:
+    rules:
+    - component:
+        name: wagtail
+      match:
+        path:
+          prefix: /
+
+  databases:
+    - name: wagtail-db
+      engine: PG
+      version: "12"
+      production: false
+      db_name: wagtail-db
+      db_user: wagtail-db
