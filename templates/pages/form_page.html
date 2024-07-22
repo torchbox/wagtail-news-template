@@ -1,27 +1,28 @@
-{% templatetag openblock %} extends "base_page.html" {% templatetag closeblock %}
-{% templatetag openblock %} load wagtailcore_tags {% templatetag closeblock %}
+{% verbatim %}
+{% extends "base_page.html" %}
+{% load wagtailcore_tags %}
 
 
-{% templatetag openblock %} block content {% templatetag closeblock %}
-    {% templatetag openblock %} block breadcrumbs {% templatetag closeblock %}
-        {% templatetag openblock %} include "navigation/breadcrumbs.html" {% templatetag closeblock %}
-    {% templatetag openblock %} endblock {% templatetag closeblock %}
+{% block content %}
+    {% block breadcrumbs %}
+        {% include "navigation/breadcrumbs.html" %}
+    {% endblock %}
     <div class="site-padding site-container">
 
-        {# Hero #}
+        
         <div class="flex flex-col md:flex-row md:items-center py-20">
             <h1 class="min-w-fit max-w-[600px]font-serif4 [word-spacing:-6px] font-bold text-8xl lg:text-10xl
             md:pr-16
             lg:pr-20
-            {% templatetag openblock %} if page.introduction {% templatetag closeblock %}
+            {% if page.introduction %}
                 md:border-r-[1px]
                 md:basis-2/6
                 border-grey-200
-            {% templatetag openblock %} endif {% templatetag closeblock %}
+            {% endif %}
             ">
-                {% templatetag openvariable %} page.title {% templatetag closevariable %}
+                {{ page.title }}
             </h1>
-            {% templatetag openblock %} if page.introduction {% templatetag closeblock %}
+            {% if page.introduction %}
                 <div class="
                     max-w-[636px]
                     rich-text
@@ -30,25 +31,25 @@
                     md:pl-16
                     lg:pl-20
                 ">
-                    {% templatetag openvariable %} page.introduction|richtext {% templatetag closevariable %}
+                    {{ page.introduction|richtext }}
                 </div>
-            {% templatetag openblock %} endif {% templatetag closeblock %}
+            {% endif %}
         </div>
 
-        <form class="pb-20 md:pb-40 max-w-[520px]" action="{% templatetag openblock %} pageurl page {% templatetag closeblock %}" method="POST">
-            {% templatetag openblock %} csrf_token {% templatetag closeblock %}
+        <form class="pb-20 md:pb-40 max-w-[520px]" action="{% pageurl page %}" method="POST">
+            {% csrf_token %}
 
 
-            {% templatetag openblock %} for field in form {% templatetag closeblock %}
-                {% templatetag openblock %} include "components/form-field.html" with field=field {% templatetag closeblock %}
-            {% templatetag openblock %} endfor {% templatetag closeblock %}
+            {% for field in form %}
+                {% include "components/form-field.html" with field=field %}
+            {% endfor %}
 
             <button
                 type="Submit"
                 class="md:px-10 px-5 py-3 md:py-[15px] justify-center items-center text-sm md:text-base font-codepro uppercase inline-flex text-white bg-mackerel-300 dark:text-mackerel-400 rounded-[30px]">
-                {% templatetag openvariable %} form.action_text|default:"Submit" {% templatetag closevariable %}
+                {{ form.action_text|default:"Submit" }}
             </button>
         </form>
     </div>
-{% templatetag openblock %} endblock content {% templatetag closeblock %}
-    
+{% endblock content %}
+{% endverbatim %}

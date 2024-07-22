@@ -1,5 +1,5 @@
-{% templatetag openblock %} load wagtailcore_tags wagtailsettings_tags wagtailimages_tags {% templatetag closeblock %}
-
+{% verbatim %}
+{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags %}
 
 <div class="flex flex-col 
 
@@ -13,42 +13,42 @@ w-full h-full group
         lg:max-w-full
         w-full 
     ">
-        {% templatetag openblock %} if page.listing_image {% templatetag closeblock %}
-            {% templatetag openblock %} image page.listing_image format-jpeg fill-800x600 as card_image_1x_jpg {% templatetag closeblock %}
-            {% templatetag openblock %} image page.listing_image format-jpeg fill-1600x1200 as card_image_2x_jpg {% templatetag closeblock %}
-            {% templatetag openblock %} image page.listing_image format-webp fill-800x600 as card_image_1x_webp {% templatetag closeblock %}
-            {% templatetag openblock %} image page.listing_image format-webp fill-1600x1200 as card_image_2x_webp {% templatetag closeblock %}
-        {% templatetag openblock %} else {% templatetag closeblock %}
-            {# fallback to placeholder image #}
-            {% templatetag openblock %} image settings.utils.SystemMessagesSettings.get_placeholder_image format-jpeg fill-800x600 as card_image_1x_jpg {% templatetag closeblock %}
-            {% templatetag openblock %} image settings.utils.SystemMessagesSettings.get_placeholder_image format-jpeg fill-1600x1200 as card_image_2x_jpg {% templatetag closeblock %}
-            {% templatetag openblock %} image settings.utils.SystemMessagesSettings.get_placeholder_image format-webp fill-800x600 as card_image_1x_webp {% templatetag closeblock %}
-            {% templatetag openblock %} image settings.utils.SystemMessagesSettings.get_placeholder_image format-webp fill-1600x1200 as card_image_2x_webp {% templatetag closeblock %}
-        {% templatetag openblock %} endif {% templatetag closeblock %}
+        {% if page.listing_image %}
+            {% image page.listing_image format-jpeg fill-800x600 as card_image_1x_jpg %}
+            {% image page.listing_image format-jpeg fill-1600x1200 as card_image_2x_jpg %}
+            {% image page.listing_image format-webp fill-800x600 as card_image_1x_webp %}
+            {% image page.listing_image format-webp fill-1600x1200 as card_image_2x_webp %}
+        {% else %}
+            
+            {% image settings.utils.SystemMessagesSettings.get_placeholder_image format-jpeg fill-800x600 as card_image_1x_jpg %}
+            {% image settings.utils.SystemMessagesSettings.get_placeholder_image format-jpeg fill-1600x1200 as card_image_2x_jpg %}
+            {% image settings.utils.SystemMessagesSettings.get_placeholder_image format-webp fill-800x600 as card_image_1x_webp %}
+            {% image settings.utils.SystemMessagesSettings.get_placeholder_image format-webp fill-1600x1200 as card_image_2x_webp %}
+        {% endif %}
         <picture>
-            <source srcset="{% templatetag openvariable %} card_image_1x_webp.url {% templatetag closevariable %} 1x, {% templatetag openvariable %} card_image_2x_webp.url {% templatetag closevariable %} 2x" type="image/webp" />
-            <source srcset="{% templatetag openvariable %} card_image_1x_jpg.url {% templatetag closevariable %} 1x, {% templatetag openvariable %} card_image_2x_jpg.url {% templatetag closevariable %} 2x" type="image/jpeg" />
+            <source srcset="{{ card_image_1x_webp.url }} 1x, {{ card_image_2x_webp.url }} 2x" type="image/webp" />
+            <source srcset="{{ card_image_1x_jpg.url }} 1x, {{ card_image_2x_jpg.url }} 2x" type="image/jpeg" />
             <img
-                src="{% templatetag openvariable %} card_image_1x_webp.url {% templatetag closevariable %}"
-                width="{% templatetag openvariable %} card_image_1x_webp.width {% templatetag closevariable %}"
-                height="{% templatetag openvariable %} card_image_1x_webp.height {% templatetag closevariable %}"
-                alt="{% templatetag openvariable %} card_image_1x_webp.alt {% templatetag closevariable %}"
+                src="{{ card_image_1x_webp.url }}"
+                width="{{ card_image_1x_webp.width }}"
+                height="{{ card_image_1x_webp.height }}"
+                alt="{{ card_image_1x_webp.alt }}"
 
                 class="
                 aspect-[20/11] 
                 md:aspect-[4/3] lg:aspect-[20/11] 
                 
                 w-full h-full object-cover"
-                {% templatetag openblock %} if card_image_1x_webp.focal_point {% templatetag closeblock %}
-                style='{% templatetag openvariable %} card_image_1x_webp.object_position_style {% templatetag closevariable %}'
-                {% templatetag openblock %} endif {% templatetag closeblock %}
+                {% if card_image_1x_webp.focal_point %}
+                style='{{ card_image_1x_webp.object_position_style }}'
+                {% endif %}
             />
         </picture>
     </div>
 
     <div class="pt-7">
         <a
-            href="{% templatetag openblock %} pageurl page {% templatetag closeblock %}"
+            href="{% pageurl page %}"
             class="
             text-xl md:text-2xl font-bold leading-8 md:leading-10
             underline
@@ -58,10 +58,11 @@ w-full h-full group
             hover:decoration-mackerel-300
             "
         >
-            {% templatetag openblock %} firstof page.listing_title page.title {% templatetag closeblock %}
+            {% firstof page.listing_title page.title %}
         </a>
         <p class="text-grey-700 dark:text-grey-200 pt-2.5 leading-6">
-            {% templatetag openblock %} firstof page.listing_summary page.plain_introduction {% templatetag closeblock %}
+            {% firstof page.listing_summary page.plain_introduction %}
         </p>
     </div>
 </div>
+{% endverbatim %}

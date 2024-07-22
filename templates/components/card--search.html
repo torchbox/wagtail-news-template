@@ -1,4 +1,5 @@
-{% templatetag openblock %} load wagtailcore_tags wagtailsettings_tags wagtailimages_tags {% templatetag closeblock %}
+{% verbatim %}
+{% load wagtailcore_tags wagtailsettings_tags wagtailimages_tags %}
 
 
 <div class="flex flex-col 
@@ -19,25 +20,25 @@
         <p class="text-sm md:text-base text-grey-700 dark:text-grey-200 font-codepro pt-7 md:pt-0 pb-2.5">
 
             <span class="text-sm md:text-base text-mackerel-300 font-medium uppercase">
-                {% templatetag openblock %} if page.topic {% templatetag closeblock %}
-                    {% templatetag openvariable %} page.topic {% templatetag closevariable %}
-                {% templatetag openblock %} else {% templatetag closeblock %}
+                {% if page.topic %}
+                    {{ page.topic }}
+                {% else %}
                     Page
-                {% templatetag openblock %} endif {% templatetag closeblock %}
+                {% endif %}
             </span>
-            {% templatetag openblock %} if page.display_date {% templatetag closeblock %}
+            {% if page.display_date %}
                 <span aria-hidden="true"
                     class="line-through decoration-white dark:decoration-mackerel-400 decoration-4 text-grey-700 dark:text-grey-200">
                     //
                 </span>
                 <span class="text-sm md:text-base text-grey-700 dark:text-grey-200">
-                    {% templatetag openvariable %} page.display_date {% templatetag closevariable %}
+                    {{ page.display_date }}
                 </span>
-            {% templatetag openblock %} endif {% templatetag closeblock %}
+            {% endif %}
         </p>
 
         <a
-            href="{% templatetag openblock %} pageurl page {% templatetag closeblock %}"
+            href="{% pageurl page %}"
             class="
             text-xl md:text-2xl font-bold leading-8 md:leading-10
             underline
@@ -47,10 +48,11 @@
             hover:decoration-mackerel-300
             "
         >
-            {% templatetag openblock %} firstof page.listing_title page.title {% templatetag closeblock %}
+            {% firstof page.listing_title page.title %}
         </a>
         <p class="text-grey-700 dark:text-grey-200 pt-2.5 leading-6">
-            {% templatetag openblock %} firstof page.listing_summary page.plain_introduction {% templatetag closeblock %}
+            {% firstof page.listing_summary page.plain_introduction %}
         </p>
     </div>
 </div>
+{% endverbatim %}
