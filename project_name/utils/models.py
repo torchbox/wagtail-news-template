@@ -348,7 +348,7 @@ class BasePage(SocialFields, ListingFields, Page):
             introduction_value = getattr(self, "introduction", None)
             if introduction_value:
                 if isinstance(introduction_field, RichTextField):
-                    soup = BeautifulSoup(expand_db_html(introduction_value), "html5lib")
+                    soup = BeautifulSoup(expand_db_html(introduction_value), "html.parser")
                     return soup.text
                 else:
                     return introduction_value
