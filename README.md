@@ -2,21 +2,6 @@
 
 This Django project template is designed for creating Wagtail builds quickly, intended for developers to bootstrap their Wagtail site development using `wagtail start --template=`. The template comes with pre-defined pages, blocks, functionalities, and fixtures to streamline the initial setup process.
 
-## Todo
-
-- [ ] Update fixtures and images to be more generic
-- [ ] Add some form of linting
-- [ ] Load in fonts locally
-- [ ] Add CI tasks
-- [ ] Finish or alter the footer's signup feature to link to a form page
-- [ ] Add support for wagtail search promotions
-- [ ] Style the related pages slideshow component
-- [ ] Accessibility,
-    - [ ] Resolve contrast issues with button component
-    - [ ] Windows High-Contrast mode support
-- [ ] Style other block types
-- [ ] Style other field types for form page
-
 ## Getting Started
 
 1. **Create a Virtual Environment**: Set up a virtual environment to isolate your project dependencies.
@@ -108,11 +93,11 @@ To customize this template, you can either make changes directly or backport cha
 3. Once you've completed your changes, you'll need to copy them over to the original project template, making sure to:
 
     3.1. Replace occurrences of `myproject` with `{{ project_name }}`
-    
+
     3.2. Rename the project directory from `myproject` to `project_name` (without double curly brackets this time).
-    
+
     3.3. Wrap template code (`.html` files under the templates directory), with a [verbatim tag](https://docs.djangoproject.com/en/5.0/ref/templates/builtins/#std-templatetag-verbatim) or similar [templatetag](https://docs.djangoproject.com/en/5.0/ref/templates/builtins/#templatetag) to prevent template tags being rendered on `wagtail start` ([see django's rendering warning](https://docs.djangoproject.com/en/5.0/ref/django-admin/#render-warning)).
-5. Update compiled static assets using `npm run build:prod`. 
+5. Update compiled static assets using `npm run build:prod`.
 6. Update fixtures using `make dump-data`
 
 Make sure to test any changes by reviewing them against a newly created project, by following the [Getting Started](#getting-started) instructions again.
