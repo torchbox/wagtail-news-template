@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "{{ project_name }}.standardpages",
     "{{ project_name }}.users",
     "{{ project_name }}.utils",
-    "django.contrib.sitemaps",
     "wagtail.contrib.settings",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -59,6 +58,7 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
+    "django.contrib.sitemaps",
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
