@@ -4,57 +4,62 @@ This Django project template is designed for creating Wagtail builds quickly, in
 
 ## Getting Started
 
-1. **Create a Virtual Environment**: Set up a virtual environment to isolate your project dependencies.
+1. **Check that you have an appropriate version of Python 3**  You want to make sure that you have a (compatible version)[https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions] installed:
+
+```sh
+python --version
+# Or:
+python3 --version
+# **On Windows** (cmd.exe, with the Python Launcher for Windows):
+py --version
+```
+
+2. **Create a Virtual Environment**: Set up a virtual environment to isolate your project dependencies. These instructions are for GNU/Linux or MacOS, but there are (other operating systems in the Wagtail docs)[https://docs.wagtail.org/en/stable/getting_started/tutorial.html#create-and-activate-a-virtual-environment].
 
     ```bash
-    pyenv virtualenv 3.8 myproject
-    pyenv activate myproject
+    python -m venv myproject/env
+    source myproject/env/bin/activate
     ```
 
-2. **Install Wagtail**: Install the Wagtail CMS package using pip.
+3. **Install Wagtail**: Install the Wagtail CMS package using pip.
 
     ```bash
     pip install wagtail
     ```
 
-3. **Initialize Project**: Use the Django `startproject` command to create a new project based on the Wagtail Starter Kit template.
+4. **Initialize Project**: Use the Django `startproject` command to create a new project based on the Wagtail Starter Kit template.
 
     ```bash
-    wagtail start myproject --template=<<path or git url>>
+    wagtail start myproject --template=https://github.com/torchbox/wagtail-news-template/archive/refs/heads/main.zip myproject .
     ```
 
-4. **Navigate to Project Directory**: Move into the newly created project directory.
+5. **Navigate to Project Directory**: Move into the newly created project directory.
 
     ```bash
     cd myproject
     ```
 
-5. **Install Project Dependencies**: Install the project's dependencies into a virtual environment.
+6. **Install Project Dependencies**: Install the project's dependencies into a virtual environment.
 
     ```bash
-    python -m venv venv
-
-    source venv/bin/activate  # For Linux / macOS
-    venv/bin/Activate.ps1  # For Windows
-
     pip install -r requirements.txt
     ```
 
 All commands from now on should be run from inside the virtual environment.
 
-6. **Load Dummy Data**: Optionally load in some dummy data, to populate the site with some content.
+7. **Load Dummy Data**: Optionally load in some dummy data, to populate the site with some content.
 
     ```bash
     make load-data
     ```
 
-7. **Start the Server**: Start the Django development server.
+8. **Start the Server**: Start the Django development server.
 
     ```bash
     make start
     ```
 
-8. **Access the Site and Admin**: Once the server is running, you can view the site at `localhost:8000` and access the Wagtail admin interface at `localhost:8000/admin`. Log in with the default credentials provided by :
+9. **Access the Site and Admin**: Once the server is running, you can view the site at `localhost:8000` and access the Wagtail admin interface at `localhost:8000/admin`. Log in with the default credentials provided by :
 
     - Username: admin
     - Password: password
