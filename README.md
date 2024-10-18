@@ -74,7 +74,7 @@ Don't see your preference here? Contributions are always welcome!
 
 #### fly.io
 
-Before you can deploy to [fly.io](https://fly.io/), you will need an account, as well as the `fly` CLI tool configured locally.
+Before you can deploy to [fly.io](https://fly.io/), you will need an account and the `fly` CLI tool will need to be [installed on your machine](https://fly.io/docs/flyctl/install/).
 
 1. In the root directory of your project (the one with a `fly.toml` file), run `fly launch`
    1. When prompted about copying the existing `fly.toml` file to a new app, choose "Yes".
