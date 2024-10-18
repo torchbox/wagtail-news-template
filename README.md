@@ -47,7 +47,7 @@ This Django project template is designed for creating Wagtail builds quickly, in
 
 All commands from now on should be run from inside the virtual environment.
 
-7. **Load Dummy Data**: Optionally load in some dummy data, to populate the site with some content.
+7. **Load Dummy Data**: Load in some dummy data to populate the site with some content.
 
     ```bash
     make load-data
