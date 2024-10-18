@@ -21,25 +21,25 @@ This Django project template is designed for creating Wagtail builds quickly, in
     source myproject/env/bin/activate
     ```
 
-3. **Install Wagtail**: Install the Wagtail CMS package using pip.
-
-    ```bash
-    pip install wagtail
-    ```
-
-4. **Initialize Project**: Use the Django `startproject` command to create a new project based on the Wagtail Starter Kit template.
-
-    ```bash
-    wagtail start myproject --template=https://github.com/torchbox/wagtail-news-template/archive/refs/heads/main.zip myproject .
-    ```
-
-5. **Navigate to Project Directory**: Move into the newly created project directory.
+4. **Navigate to Project Directory**: Move into the newly created project directory.
 
     ```bash
     cd myproject
     ```
 
-6. **Install Project Dependencies**: Install the project's dependencies into a virtual environment.
+5. **Install Wagtail**: Install the Wagtail CMS package using pip.
+
+    ```bash
+    pip install wagtail
+    ```
+
+6. **Initialize Project**: Use the Django `startproject` command to create a new project based on the Wagtail Starter Kit template.
+
+    ```bash
+    wagtail start --template=https://github.com/torchbox/wagtail-news-template/archive/refs/heads/main.zip myproject .
+    ```
+
+7. **Install Project Dependencies**: Install the project's dependencies into a virtual environment.
 
     ```bash
     pip install -r requirements.txt
