@@ -4,17 +4,17 @@ This Django project template is designed for creating Wagtail builds quickly, in
 
 ## Getting Started
 
-1. **Check that you have an appropriate version of Python 3**  You want to make sure that you have a (compatible version)[https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions] installed:
+1. **Check that you have an appropriate version of Python 3**  You want to make sure that you have a [compatible version](https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions) installed:
 
-```sh
-python --version
-# Or:
-python3 --version
-# **On Windows** (cmd.exe, with the Python Launcher for Windows):
-py --version
-```
+    ```sh
+    python --version
+    # Or:
+    python3 --version
+    # **On Windows** (cmd.exe, with the Python Launcher for Windows):
+    py --version
+    ```
 
-2. **Create a Virtual Environment**: Set up a virtual environment to isolate your project dependencies. These instructions are for GNU/Linux or MacOS, but there are (other operating systems in the Wagtail docs)[https://docs.wagtail.org/en/stable/getting_started/tutorial.html#create-and-activate-a-virtual-environment].
+2. **Create a Virtual Environment**: Set up a virtual environment to isolate your project dependencies. These instructions are for GNU/Linux or MacOS, but there are [other operating systems in the Wagtail docs](https://docs.wagtail.org/en/stable/getting_started/tutorial.html#create-and-activate-a-virtual-environment).
 
     ```bash
     python -m venv myproject/env
