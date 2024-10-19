@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "wagtail.contrib.settings",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
+    "wagtail.contrib.search_promotions",
     "wagtail.sites",
     "wagtail.users",
     "wagtail.snippets",
