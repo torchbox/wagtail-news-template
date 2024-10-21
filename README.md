@@ -33,7 +33,7 @@ This Django project template is designed for creating Wagtail builds quickly, in
     pip install wagtail
     ```
 
-6. **Initialize Project**: Use the Django `startproject` command to create a new project based on the Wagtail Starter Kit template.
+6. **Initialize Project**: Use the `wagtail start` command to create a new project based on the Wagtail Starter Kit template.
 
     ```bash
     wagtail start --template=https://github.com/torchbox/wagtail-news-template/archive/refs/heads/main.zip myproject .
