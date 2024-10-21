@@ -78,12 +78,20 @@ Before you can deploy to [fly.io](https://fly.io/), you will need an account and
 
 1. In the root directory of your project (the one with a `fly.toml` file), run `fly launch`
    1. When prompted about copying the existing `fly.toml` file to a new app, choose "Yes".
+
+> [!CAUTION]
+> Choosing "No" (the default) here will result in a broken deployment, as the `fly.toml` file requires configuration needed for the project to run correctly.
+
    2. When prompted about continuing the setup in the web UI, or tweak the generated settings, choose "No".
       1. The "Region" will be selected automatically. If you wish to change this, choose "Yes" instead, and modify the region in the browser.
 2. Once the launch is successful, you'll need to [generate a secret key](https://realorangeone.github.io/django-secret-key-generator/)
    1. This can be done using `fly secrets set SECRET_KEY=<key>`, or through the web UI.
 3. Finally (optional), load in the dummy data, to help get you started
    1. `fly ssh console -u wagtail -C "./manage.py load_initial_data"`
+
+> [!NOTE]
+> If you receive "error connecting to SSH server" when running the above command, It likely means the `fly.toml` above wasn't picked up correctly. Unfortunately, you'll need to delete your application and start again, resetting the changes to the `fly.toml` file.
+> If the error still persists, check the application logs.
 
 You can now visit your wagtail site at the URL provided by `fly`. We strongly recommend setting strong password for your user.
 
