@@ -47,19 +47,19 @@ This Django project template is designed for creating Wagtail builds quickly, in
 
 All commands from now on should be run from inside the virtual environment.
 
-7. **Load Dummy Data**: Load in some dummy data to populate the site with some content.
+8. **Load Dummy Data**: Load in some dummy data to populate the site with some content.
 
     ```bash
     make load-data
     ```
 
-8. **Start the Server**: Start the Django development server.
+9. **Start the Server**: Start the Django development server.
 
     ```bash
     make start
     ```
 
-9. **Access the Site and Admin**: Once the server is running, you can view the site at `localhost:8000` and access the Wagtail admin interface at `localhost:8000/admin`. Log in with the default credentials provided by :
+10. **Access the Site and Admin**: Once the server is running, you can view the site at `localhost:8000` and access the Wagtail admin interface at `localhost:8000/admin`. Log in with the default credentials provided by :
 
     - Username: admin
     - Password: password
