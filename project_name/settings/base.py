@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
+    "wagtail.contrib.search_promotions",
     "wagtail",
     "modelcluster",
     "taggit",
