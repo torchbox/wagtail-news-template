@@ -14,5 +14,6 @@ dump-data:
 
 reset-db:
 	rm -f db.sqlite3
+	python ./manage.py createcachetable
 	python ./manage.py migrate
 	python ./manage.py load_initial_data
