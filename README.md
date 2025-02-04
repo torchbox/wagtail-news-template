@@ -106,7 +106,7 @@ Easily deploy your application to [Divio Cloud](https://www.divio.com/) using th
 1. **Getting Started**  
    Follow the [Getting Started](#getting-started) instructions to set up your project locally.
 
-2. **Prepare Your Repository**  
+2. **Push Your Repository**  
    Upload your project to GitHub or another Git provider.
 
 3. **Create a New Application**  
