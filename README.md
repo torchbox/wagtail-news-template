@@ -126,10 +126,11 @@ Easily deploy your application to [Divio Cloud](https://www.divio.com/) using th
 
 6. **Additional Configuration**  
    **Migrations and Environment Variables**:
-To automatically run migrations on every deployment, add a "Release command" within the **Settings** section of your application with the value `python manage.py migrate`. 
+   
+   To automatically run migrations on every deployment, add a "Release command" within the **Settings** section of your application with the value `python manage.py migrate`. 
 You can add additional commands as needed.
 
-Use the **Env Variables** section to set variables such as `SECRET_KEY` for the test and live environments.
+   Use the **Env Variables** section to set variables such as `SECRET_KEY` for the test and live environments.
 
    **Media Storage**: From the **Services** view of your application, add an [object storage](https://docs.divio.com/reference/work-media-storage/) to store user-uploaded files.
 
