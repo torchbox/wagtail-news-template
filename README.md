@@ -114,18 +114,25 @@ Easily deploy your application to [Divio Cloud](https://www.divio.com/) using th
 
    - Choose "**I already have a repository**.".
    - Connect your Git provider and proceed by clicking "**Next**.".
-   - Give your application a suitable name and select the "**Free Trial**" plan to get started.
+   - Give your application a suitable name and select the "**Free Trial**" plan, then click **"Create application."**.
+   
+   Your application will be created with two environments: **Test** and **Live**.
 
-4. **Configure a Database**
-   You need a [database](https://docs.divio.com/introduction/aldryn-django/django-05-database/) in order for the deployment to succeed. Adapt your [`settings/base.py`](https://github.com/torchbox/wagtail-news-template/blob/main/project_name/settings/base.py#L105-L111) to include the [proper configuration](https://github.com/divio/getting-started-with-wagtail/blob/main/mysite/settings/base.py#L90-L98). Commit the changes and push them to your repository.
+4. **Add a Database service**
+   From the **Services** view of your application, add a [database](https://docs.divio.com/introduction/aldryn-django/django-05-database/) service.
 
 5. **Deploy Your Application**  
-   Divio automatically provide **Test** and **Live** environments. From the "Environments" view, click "**Deploy**" on the **Test** environment. Once the deployment completes, access your site using the "Env URL" link.
+   From the "Environments" view, click "**Deploy**" on the **Test** environment. Once the deployment completes, access your site using the "Env URL" link.
 
 6. **Additional Configuration**  
-   **Migrations and Environment Variables**: Add a "Release command" within the **Settings** section with the value `python manage.py migrate` to run migrations automatically on every deployment. You can add additional commands as needed. The **Env Variables** section allows you to set variables such as `SECRET_KEY` for the test and live environments.
+   **Migrations and Environment Variables**:
+To automatically run migrations on every deployment, add a "Release command" within the **Settings** section of your application with the value `python manage.py migrate`. 
+You can add additional commands as needed.
+Use the **Env Variables** section to set variables such as `SECRET_KEY` for the test and live environments.
 
-   **Media Storage**: Divio provides [object storage](https://docs.divio.com/reference/work-media-storage/) to store user-uploaded files. You can configure this within your [`settings.py`](https://github.com/divio/getting-started-with-wagtail/blob/main/mysite/settings/base.py#L151-L169).
+   **Application-Specific Configurations**
+   **Media Storage**: From the **Services** view of your application, add an [object storage](https://docs.divio.com/reference/work-media-storage/) to store user-uploaded files.
+   For further application-specific configurations, update your [`settings.py`](https://github.com/divio/getting-started-with-wagtail/blob/main/mysite/settings/base.py#L151-L169) accordingly.
 
 ## Contributing
 
