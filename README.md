@@ -99,7 +99,7 @@ The database and user-uploaded media are stored in the attached volume. To save 
 
 #### Divio Cloud
 
-[![Deploy to Divio](https://docs.divio.com/deploy-to-divio.svg)](https://control.divio.com/app/new/?template_url=https://github.com/divio/getting-started-with-wagtail/archive/refs/heads/main.zip)
+[![Deploy to Divio](https://docs.divio.com/deploy-to-divio.svg)](https://control.divio.com/app/new/?template_url=https://github.com/divio/getting-started-with-payload/archive/refs/heads/main.zip)
 
 Easily deploy your application to [Divio Cloud](https://www.divio.com/) using the steps below:
 
