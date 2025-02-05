@@ -134,7 +134,7 @@ You can add additional commands as needed.
 
    **Media Storage**: From the **Services** view of your application, add an [object storage](https://docs.divio.com/reference/work-media-storage/) to store user-uploaded files.
 
-   For further application-specific configurations, update your [`settings.py`](https://github.com/divio/getting-started-with-wagtail/blob/main/mysite/settings/base.py#L151-L169) accordingly.
+   For further application-specific configurations, update your [`settings.py`](https://github.com/divio/getting-started-with-wagtail/blob/main/mysite/settings/base.py) accordingly.
 
 ## Contributing
 
