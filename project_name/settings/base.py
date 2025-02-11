@@ -183,36 +183,22 @@ CACHES = {
     }
 }
 
+def get_first_env(*keys, default=None):
+    """
+    Return the first set environment variable (with a truthy value)
+    """
+
+    for key in keys:
+        if val := os.getenv(key):
+            return val
+
+    return default
+
 
 # Check for either DEFAULT_* (Divio) or AWS_* environment variables
 
 # AWS_STORAGE_BUCKET_NAME: The name of the S3 bucket to use for storage.
-AWS_STORAGE_BUCKET_NAME = os.environ.get("DEFAULT_STORAGE_BUCKET", "") or os.environ.get("AWS_STORAGE_BUCKET_NAME", "")
-
-# AWS_ACCESS_KEY_ID: The access key ID for authenticating with AWS S3.
-AWS_ACCESS_KEY_ID = os.environ.get("DEFAULT_STORAGE_ACCESS_KEY_ID", "") or os.environ.get("AWS_ACCESS_KEY_ID", "")
-
-# AWS_SECRET_ACCESS_KEY: The secret access key for authenticating with AWS S3.
-AWS_SECRET_ACCESS_KEY = os.environ.get("DEFAULT_STORAGE_SECRET_ACCESS_KEY", "") or os.environ.get("AWS_SECRET_ACCESS_KEY", "")
-
-# We generally use this setting in the production to put the S3 bucket
-# behind a CDN using a custom domain, e.g. media.llamasavers.com.
-# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#cloudfront
-AWS_S3_CUSTOM_DOMAIN = os.environ.get("DEFAULT_STORAGE_CUSTOM_DOMAIN", "") or os.environ.get("AWS_S3_CUSTOM_DOMAIN", "")
-
-# When signing URLs is facilitated, the region must be set, because the
-# global S3 endpoint does not seem to support that. Set this only if 
-# necessary.
-AWS_S3_REGION_NAME = os.environ.get("DEFAULT_STORAGE_REGION", "") or os.environ.get("AWS_S3_REGION_NAME", "")
-
-# Customize the endpoint, for non-AWS environments
-AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL", "")
-
-# This settings lets you force using http or https protocol when generating
-# the URLs to the files. Set https as default.
-# https://github.com/jschneier/django-storages/blob/10d1929de5e0318dbd63d715db4bebc9a42257b5/storages/backends/s3boto3.py#L217
-AWS_S3_URL_PROTOCOL = os.environ.get("AWS_S3_URL_PROTOCOL", "https:")
-
+AWS_STORAGE_BUCKET_NAME = get_first_env("AWS_STORAGE_BUCKET_NAME", "DEFAULT_STORAGE_BUCKET")
 
 # Only proceed if AWS_STORAGE_BUCKET_NAME is set
 if AWS_STORAGE_BUCKET_NAME:
@@ -221,6 +207,33 @@ if AWS_STORAGE_BUCKET_NAME:
 
     # https://docs.djangoproject.com/en/stable/ref/settings/#std-setting-STORAGES
     STORAGES["default"]["BACKEND"] = "storages.backends.s3boto3.S3Boto3Storage"
+
+    # AWS_ACCESS_KEY_ID: The access key ID for authenticating with AWS S3.
+    AWS_ACCESS_KEY_ID = get_first_env("AWS_ACCESS_KEY_ID", "DEFAULT_STORAGE_ACCESS_KEY_ID")
+
+    # AWS_SECRET_ACCESS_KEY: The secret access key for authenticating with AWS S3.
+    AWS_SECRET_ACCESS_KEY = get_first_env("AWS_SECRET_ACCESS_KEY", "DEFAULT_STORAGE_SECRET_ACCESS_KEY")
+
+    # We generally use this setting in the production to put the S3 bucket
+    # behind a CDN using a custom domain, e.g. media.llamasavers.com.
+    # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#cloudfront
+    if custom_domain := get_first_env("AWS_S3_CUSTOM_DOMAIN", "DEFAULT_STORAGE_CUSTOM_DOMAIN"):
+        AWS_S3_CUSTOM_DOMAIN = custom_domain
+
+    # When signing URLs is facilitated, the region must be set, because the
+    # global S3 endpoint does not seem to support that. Set this only if
+    # necessary.
+    if region_name := get_first_env("AWS_S3_REGION_NAME", "DEFAULT_STORAGE_REGION"):
+        AWS_S3_REGION_NAME = region_name
+
+    # Customize the endpoint, for non-AWS environments
+    if endpoint_url := os.environ.get("AWS_S3_ENDPOINT_URL", None):
+        AWS_S3_ENDPOINT_URL = endpoint_url
+
+    # This settings lets you force using http or https protocol when generating
+    # the URLs to the files. Set https as default.
+    # https://github.com/jschneier/django-storages/blob/10d1929de5e0318dbd63d715db4bebc9a42257b5/storages/backends/s3boto3.py#L217
+    AWS_S3_URL_PROTOCOL = os.environ.get("AWS_S3_URL_PROTOCOL", "https:")
 
     # Disables signing of the S3 objects' URLs. When set to True it
     # will append authorization querystring to each URL.
@@ -235,12 +248,6 @@ if AWS_STORAGE_BUCKET_NAME:
     # public. Images should be made available to public via the bucket policy,
     # where the documents should use wagtail-storages.
     AWS_DEFAULT_ACL = "private"
-
-    # Additional S3 object parameters
-    AWS_S3_OBJECT_PARAMETERS = {
-        "ACL": "public-read",
-        "CacheControl": "max-age=86400",
-    }
 
     # Limit how large a file can be spooled into memory before it's written to disk.
     AWS_S3_MAX_MEMORY_SIZE = 2 * 1024 * 1024  # 2MB
