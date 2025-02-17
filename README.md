@@ -103,38 +103,36 @@ The database and user-uploaded media are stored in the attached volume. To save 
 
 Easily deploy your application to [Divio Cloud](https://www.divio.com/) using the steps below:
 
-1. **Getting Started**  
+1. **Getting Started**
    Follow the [Getting Started](#getting-started) instructions to set up your project locally.
 
-2. **Push Your Repository**  
+2. **Push Your Repository**
    Upload your project to GitHub or another Git provider.
 
-3. **Create a New Application**  
+3. **Create a New Application**
    Log in to the [Divio Control Panel](https://control.divio.com/) and create a new application and
 
    - Choose "**I already have a repository**.".
    - Connect your Git provider and proceed by clicking "**Next**.".
    - Give your application a suitable name and select the "**Free Trial**" plan, then click **"Create application."**.
-   
+
    Your application will be created with two environments: **Test** and **Live**.
 
 4. **Add a Database service**
    From the **Services** view of your application, add a [database](https://docs.divio.com/introduction/aldryn-django/django-05-database/) service.
 
-5. **Deploy Your Application**  
+5. **Deploy Your Application**
    From the "Environments" view, click "**Deploy**" on the **Test** environment. Once the deployment completes, access your site using the "Env URL" link.
 
-6. **Additional Configuration**  
+6. **Additional Configuration**
    **Migrations and Environment Variables**:
-   
-   To automatically run migrations on every deployment, add a "Release command" within the **Settings** section of your application with the value `python manage.py migrate`. 
+
+   To automatically run migrations on every deployment, add a "Release command" within the **Settings** section of your application with the value `python manage.py migrate`.
 You can add additional commands as needed.
 
-   Use the **Env Variables** section to set variables such as `SECRET_KEY` for the test and live environments.
+   Use the **Env Variables** section to set variables such as `SECRET_KEY` ([generator](https://realorangeone.github.io/django-secret-key-generator/)) for the test and live environments.
 
    **Media Storage**: From the **Services** view of your application, add an [object storage](https://docs.divio.com/reference/work-media-storage/) to store user-uploaded files.
-
-   For further application-specific configurations, update your [`settings.py`](https://github.com/divio/getting-started-with-wagtail/blob/main/mysite/settings/base.py) accordingly.
 
 ## Contributing
 
