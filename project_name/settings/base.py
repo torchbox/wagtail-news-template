@@ -244,10 +244,9 @@ if AWS_STORAGE_BUCKET_NAME:
     # Not having this setting may have consequences in losing files.
     AWS_S3_FILE_OVERWRITE = False
 
-    # Default ACL for new files should be "private" - not accessible to the
-    # public. Images should be made available to public via the bucket policy,
-    # where the documents should use wagtail-storages.
-    AWS_DEFAULT_ACL = "private"
+    # Make uploaded files public. If this is not desirable, this should be changed to
+    # "private" and protected using a bucket policy or wagtail-storages.
+    AWS_DEFAULT_ACL = "public-read"
 
     # Limit how large a file can be spooled into memory before it's written to disk.
     AWS_S3_MAX_MEMORY_SIZE = 2 * 1024 * 1024  # 2MB
