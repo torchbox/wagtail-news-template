@@ -1,6 +1,6 @@
-# Wagtail Starter Kit - Django Project Template
+# Wagtail News Template
 
-This Django project template is designed for creating Wagtail builds quickly, intended for developers to bootstrap their Wagtail site development using `wagtail start --template=`. The template comes with pre-defined pages, blocks, functionalities, and fixtures to streamline the initial setup process.
+This project template is designed for creating [Wagtail](https://wagtail.org) builds quickly, intended for developers to bootstrap their Wagtail site development using `wagtail start --template=`. The template comes with pre-defined pages, blocks, functionalities, and fixtures to streamline the initial setup process.
 
 ## Getting Started
 
@@ -36,7 +36,7 @@ This Django project template is designed for creating Wagtail builds quickly, in
 5. **Initialize Project**: Use the `wagtail start` command to create a new project based on the Wagtail Starter Kit template.
 
    ```bash
-   wagtail start --template=https://github.com/torchbox/wagtail-news-template/archive/refs/heads/main.zip myproject .
+   wagtail start --template=https://github.com/wagtail/news-template/archive/refs/heads/main.zip myproject .
    ```
 
 6. **Install Project Dependencies**: Install the project's dependencies into a virtual environment.
@@ -99,7 +99,7 @@ The database and user-uploaded media are stored in the attached volume. To save 
 
 #### Divio Cloud
 
-[![Deploy to Divio](https://docs.divio.com/deploy-to-divio.svg)](https://control.divio.com/app/new/?template_url=https://github.com/torchbox/wagtail-news-template/archive/refs/heads/main.zip)
+[![Deploy to Divio](https://docs.divio.com/deploy-to-divio.svg)](https://control.divio.com/app/new/?template_url=https://github.com/wagtail/news-template/archive/refs/heads/main.zip)
 
 Easily deploy your application to [Divio Cloud](https://www.divio.com/) using the steps below:
 
