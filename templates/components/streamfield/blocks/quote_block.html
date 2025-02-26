@@ -1,4 +1,3 @@
-{% verbatim %}
 <div class="rich-text mb-10 md:mb-20 last:mb-0">
     <h2 class="font-serif4 text-3xl md:text-5xl font-semibold text-center
     {% if large_spacing %}
@@ -9,7 +8,7 @@
     ">
         "{{ value.quote }}"</h2>
     {% if value.attribution %}
-        <h2 class="font-serif4 text-3xl md:text-5xl font-semibold text-center
+        <h2 class="font-serif4 text-base md:text-xl font-medium text-center
         {% if large_spacing %}
             mb-10 md:mb-20
         {% else %}
@@ -18,4 +17,3 @@
         ">- {{ value.attribution }}</h2>
     {% endif %}
 </div>
-{% endverbatim %}
